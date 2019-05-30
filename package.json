@@ -4,6 +4,8 @@
   "description": "Tiny app to load and view an Unlock adventure deck",
   "main": "index.js",
   "scripts": {
+    "lint": "run-p lint:*",
+    "lint:js": "standard",
     "start": "run-p serve:*",
     "serve:api": "nodemon api",
     "serve:app": "http-server app -p 80"
@@ -31,5 +33,8 @@
     "http-server": "^0.11.1",
     "nodemon": "^1.19.1",
     "npm-run-all": "^4.1.5"
+  },
+  "devDependencies": {
+    "standard": "^12.0.1"
   }
 }

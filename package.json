@@ -1,0 +1,35 @@
+{
+  "name": "unlock-deck-viewer",
+  "version": "1.0.0",
+  "description": "Tiny app to load and view an Unlock adventure deck",
+  "main": "index.js",
+  "scripts": {
+    "start": "run-p serve:*",
+    "serve:api": "nodemon api",
+    "serve:app": "http-server app -p 80"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sophietk/unlock-deck-viewer.git"
+  },
+  "keywords": [
+    "unlock",
+    "deck",
+    "viewer",
+    "adventure",
+    "load",
+    "pdf"
+  ],
+  "author": "sophietk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sophietk/unlock-deck-viewer/issues"
+  },
+  "homepage": "https://github.com/sophietk/unlock-deck-viewer#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "http-server": "^0.11.1",
+    "nodemon": "^1.19.1",
+    "npm-run-all": "^4.1.5"
+  }
+}

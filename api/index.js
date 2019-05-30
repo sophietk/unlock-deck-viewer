@@ -24,19 +24,24 @@ app.get('/decks/:deckId/pages/:pageId', (req, res) => {
     })
 })
 
-app.get('/decks/:deckId/cards/:cardId', (req, res) => {
+app.get('/decks/:deckId/cards/:cardId/:face', (req, res) => {
   const deckId = req.params.deckId
   const cardId = req.params.cardId
+  const face = req.params.face
 
   let pageNumber = Math.floor(cardId / 6) * 2
-  pageNumber = (pageNumber % 4) ? pageNumber + 1 : pageNumber
+  if (face === 'recto') {
+    pageNumber = (pageNumber % 4) ? pageNumber + 1 : pageNumber
+  } else if (face === 'verso') {
+    pageNumber = (pageNumber % 4) ? pageNumber : pageNumber + 1
+  }
   const colNumber = (cardId % 6) % 3
   const marginLeft = pdfMarginLeft + colNumber * pdfCardWidth
   const lineNumber = Math.floor(cardId / 3) % 2
   const marginTop = pdfMarginTop + lineNumber * pdfCardHeight
 
   getPage(__dirname + `/decks/${deckId}.pdf`, pageNumber)
-    .then(pagePath => cropImage(pagePath, pdfCardWidth, pdfCardHeight, marginLeft, marginTop, __dirname + `/decks/${deckId}-card-${cardId}.png`))
+    .then(pagePath => cropImage(pagePath, pdfCardWidth, pdfCardHeight, marginLeft, marginTop, __dirname + `/decks/${deckId}-card-${cardId}-${face}.png`))
     .then(cardPath => res.sendFile(cardPath))
     .catch(err => {
       console.error(err)

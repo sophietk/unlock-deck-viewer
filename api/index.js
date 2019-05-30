@@ -35,7 +35,12 @@ app.get('/decks/:deckId/cards/:cardId/:face', (req, res) => {
   } else if (face === 'verso') {
     pageNumber = (pageNumber % 4) ? pageNumber : pageNumber + 1
   }
-  const colNumber = (cardId % 6) % 3
+  let colNumber
+  if (face === 'recto') {
+    colNumber = (cardId % 6) % 3
+  } else if (face === 'verso') {
+    colNumber = 2 - (cardId % 6) % 3
+  }
   const marginLeft = pdfMarginLeft + colNumber * pdfCardWidth
   const lineNumber = Math.floor(cardId / 3) % 2
   const marginTop = pdfMarginTop + lineNumber * pdfCardHeight

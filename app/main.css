@@ -14,9 +14,13 @@
   position: relative;
 }
 
-.card[data-face="recto"] .verso,
-.card[data-face="verso"] .recto {
+.card[data-face="recto"] .verso-only,
+.card[data-face="verso"] .recto-only {
   display: none;
+}
+
+.card.discarded {
+  opacity: 0.2;
 }
 
 .card .card-image {

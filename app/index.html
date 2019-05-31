@@ -38,22 +38,31 @@
       </div>
     </div>
 
+    <div class="modal modal-lg" id="modal-zoom">
+      <a href="#" class="modal-overlay" aria-label="Close"></a>
+      <div class="modal-container flex-centered">
+        <div class="modal-body">
+          <img src="">
+        </div>
+      </div>
+    </div>
+
     <script type="text/x-handlebars-template" id="tpl-cards">
       <div class="container">
         <div class="columns">
           {{#each cards}}
           <div class="column col-2">
             <div class="card" id="card-{{cardId}}" data-face="recto">
-              <div class="card-image recto">
+              <div class="card-image recto-only">
                 <img src="http://localhost:3000/decks/{{deckId}}/cards/{{cardId}}/recto" class="img-responsive">
               </div>
-              <div class="card-image verso">
+              <div class="card-image verso-only">
                 <img src="http://localhost:3000/decks/{{deckId}}/cards/{{cardId}}/verso" class="img-responsive">
               </div>
               <div class="card-footer">
-                <button class="btn" onclick="flipCard({{cardId}})">flip</button>
-                <button class="btn">zoom</button>
-                <button class="btn">discard</button>
+                <button class="btn" onclick="flip({{cardId}})">flip</button>
+                <button class="btn verso-only" onclick="zoom('{{deckId}}', {{cardId}})">zoom</button>
+                <button class="btn verso-only" onclick="discard({{cardId}})">discard</button>
               </div>
             </div>
           </div>

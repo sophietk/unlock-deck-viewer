@@ -18,8 +18,24 @@ document.querySelector('#btnLoad').addEventListener('click', () => {
   document.querySelector('.cards').innerHTML = cardsTpl({cards: cardIds.map(cardId => ({cardId, deckId}))})
 })
 
-const flipCard = (cardId) => {
+const flip = (cardId) => {
   const cardEl = document.querySelector(`#card-${cardId}`)
   const isRecto = cardEl.dataset.face === 'recto'
   cardEl.dataset.face = isRecto ? 'verso' : 'recto'
+}
+
+const zoom = (deckId, cardId) => {
+  const modal = document.querySelector('#modal-zoom')
+  modal.querySelector('img').src = `http://localhost:3000/decks/${deckId}/cards/${cardId}/verso`
+  modal.classList.add('active')
+}
+
+const closeZoom = () => {
+  document.querySelector('#modal-zoom').classList.remove('active')
+}
+document.querySelector('#modal-zoom').addEventListener('click', closeZoom)
+
+const discard = (cardId) => {
+  const cardEl = document.querySelector(`#card-${cardId}`)
+  cardEl.classList.add('discarded')
 }

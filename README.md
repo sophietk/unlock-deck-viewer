@@ -29,6 +29,4 @@ And go to http://localhost
 ## Next features
 
 - show a spinner when flipping a card takes too long
-- zoom into a card
-- discard a card
 - upload a custom pdf

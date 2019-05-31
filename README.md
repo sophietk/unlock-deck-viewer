@@ -3,7 +3,7 @@
 ![Unlock](https://images-fr-cdn.asmodee.com/eu-central-1/filer_public/df/e3/dfe325d8-c061-4d68-9dbf-3e824e8f71e9/unlock_logo_940x400-02.png)
 
 1. Find your next Unlock adventure deck on https://www.spacecowboys.fr/unlock-demos
-2. Load the deck on the application
+2. Choose the deck on the application
 3. Flip cards, zoom and enjoy!
 
 ## Installation

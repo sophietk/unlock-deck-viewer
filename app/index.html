@@ -1,63 +1,30 @@
-<h1>
-  <img class="unlock-logo" src="https://images-fr-cdn.asmodee.com/eu-central-1/filer_public/df/e3/dfe325d8-c061-4d68-9dbf-3e824e8f71e9/unlock_logo_940x400-02.png" alt="Unlock" width="100">
-  deck viewer
-</h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Unlock deck viewer</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+    <h1>
+      <img class="unlock-logo" src="https://images-fr-cdn.asmodee.com/eu-central-1/filer_public/df/e3/dfe325d8-c061-4d68-9dbf-3e824e8f71e9/unlock_logo_940x400-02.png" alt="Unlock" width="100">
+      deck viewer
+    </h1>
 
-<p>
-  Select a deck :
-  <select id="deckId"></select>
-</p>
-<p>
-  How many cards :
-  <input id="nbCards" type="number" value="24"></input>
-</p>
-<p>
-  <button>Load deck</button>
-</p>
+    <p>
+      Select a deck :
+      <select id="deckId"></select>
+    </p>
+    <p>
+      How many cards :
+      <input id="nbCards" type="number" value="24"></input>
+    </p>
+    <p>
+      <button>Load deck</button>
+    </p>
 
-<div class="cards"></div>
+    <div class="cards"></div>
 
-<script type="text/javascript">
-  fetch('http://localhost:3000/decks')
-    .then(function (response) { return response.json() })
-    .then(function (decks) {
-      decks.forEach(function (deckId) {
-        const option = document.createElement('option')
-        option.text = deckId
-        document.querySelector('select').add(option, null)
-      })
-    })
-
-  document.querySelector('button').addEventListener('click', function () {
-    const deckId = document.querySelector('#deckId').value
-    const nbCards = document.querySelector('#nbCards').value
-    document.querySelector('.cards').innerHTML = ''
-    var card;
-    for (card = 0; card < nbCards; card++) {
-      const cardImg = document.createElement('img')
-      cardImg.src = `http://localhost:3000/decks/${deckId}/cards/${card}/recto`
-      cardImg.width = 100
-      cardImg.addEventListener('click', function () {
-        const isRecto = cardImg.src.includes('/recto')
-        if (isRecto) {
-          cardImg.src = cardImg.src.replace('/recto', '/verso')
-        } else {
-          cardImg.src = cardImg.src.replace('/verso', '/recto')
-        }
-      })
-      document.querySelector('.cards').append(cardImg)
-    }
-  })
-
-</script>
-
-<style media="screen">
-h1 {
-  font-size: 2rem;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.unlock-logo {
-  vertical-align: middle;
-}
-</style>
+    <script src="main.js" charset="utf-8"></script>
+  </body>
+</html>

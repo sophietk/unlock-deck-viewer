@@ -25,8 +25,3 @@ Ensure you have `convert`, `gs`, and `pdfinfo` (part of poppler) commands.
     npm start
 
 And go to http://localhost
-
-## Next features
-
-- show a spinner when flipping a card takes too long
-- upload a custom pdf

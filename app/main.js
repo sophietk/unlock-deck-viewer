@@ -3,10 +3,15 @@ const cardsTpl = Handlebars.compile(document.querySelector('#tpl-cards').innerHT
 fetch('http://localhost:3000/decks')
   .then(response => response.json())
   .then(decks => {
-    decks.forEach(deckId => {
+    decks.forEach(({id, name}) => {
       const option = document.createElement('option')
-      option.text = deckId
+      option.value = id
+      option.text = name
       document.querySelector('select').add(option, null)
+    })
+    document.querySelector('select').addEventListener('change', event => {
+      const selectedDeckId = event.target.value
+      document.querySelector('#nbCards').value = decks.find(deck => deck.id === selectedDeckId).nbCards
     })
   })
 

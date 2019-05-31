@@ -16,18 +16,7 @@ app.use((req, res, next) => {
 })
 
 app.get('/decks', (req, res) => {
-  fs.readdir(path.join(__dirname, '/decks/'), (err, files) => {
-    if (err) {
-      console.error(err)
-      res.status(500).send(err)
-      return
-    }
-
-    const decks = files
-      .filter(file => file.includes('.pdf'))
-      .map(file => file.replace('.pdf', ''))
-    res.send(decks)
-  })
+  res.send(config.map(({id, name, nbCards}) => ({id, name, nbCards})))
 })
 
 app.get('/decks/:deckId/cards/:cardId/:face', (req, res) => {

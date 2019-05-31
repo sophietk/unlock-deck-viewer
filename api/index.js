@@ -43,6 +43,16 @@ app.get('/decks/:deckId/cards/:cardId/:face', (req, res) => {
   const cardId = req.params.cardId
   const face = req.params.face
 
+  const cardPath = path.join(__dirname, `/decks/${deckId}-card-${cardId}-${face}.png`)
+  try {
+    if (fs.existsSync(cardPath)) {
+      res.sendFile(cardPath)
+      return
+    }
+  } catch (err) {
+    console.error(err)
+  }
+
   let pageNumber = Math.floor(cardId / 6) * 2
   if (face === 'recto') {
     pageNumber = (pageNumber % 4) ? pageNumber + 1 : pageNumber
@@ -60,7 +70,7 @@ app.get('/decks/:deckId/cards/:cardId/:face', (req, res) => {
   const marginTop = pdfMarginTop + lineNumber * pdfCardHeight
 
   getPage(path.join(__dirname, `/decks/${deckId}.pdf`), pageNumber)
-    .then(pagePath => cropImage(pagePath, pdfCardWidth, pdfCardHeight, marginLeft, marginTop, path.join(__dirname, `/decks/${deckId}-card-${cardId}-${face}.png`)))
+    .then(pagePath => cropImage(pagePath, pdfCardWidth, pdfCardHeight, marginLeft, marginTop, cardPath))
     .then(cardPath => res.sendFile(cardPath))
     .catch(err => {
       console.error(err)

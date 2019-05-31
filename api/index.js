@@ -4,14 +4,10 @@ const gm = require('gm').subClass({ imageMagick: true })
 const fs = require('fs')
 const path = require('path')
 
+const config = require('./config')
+
 const app = express()
-const referenceDensity = 300
 const currentDensity = 200
-const ratioDensity = currentDensity / referenceDensity
-const pdfCardWidth = 721 * ratioDensity
-const pdfCardHeight = 1323 * ratioDensity
-const pdfMarginLeft = 128 * ratioDensity
-const pdfMarginTop = 505 * ratioDensity
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*')
@@ -19,12 +15,8 @@ app.use((req, res, next) => {
   next()
 })
 
-app.get('/', (req, res) => {
-  res.send('Back')
-})
-
 app.get('/decks', (req, res) => {
-  fs.readdir(path.join(__dirname, '/decks/'), function (err, files) {
+  fs.readdir(path.join(__dirname, '/decks/'), (err, files) => {
     if (err) {
       console.error(err)
       res.status(500).send(err)
@@ -53,12 +45,8 @@ app.get('/decks/:deckId/cards/:cardId/:face', (req, res) => {
     console.error(err)
   }
 
-  let pageNumber = Math.floor(cardId / 6) * 2
-  if (face === 'recto') {
-    pageNumber = (pageNumber % 4) ? pageNumber + 1 : pageNumber
-  } else if (face === 'verso') {
-    pageNumber = (pageNumber % 4) ? pageNumber : pageNumber + 1
-  }
+  const {pdfCardWidth, pdfCardHeight, pdfMarginLeft, pdfMarginTop, pageNumberFn} = config.find(deck => deck.id === deckId)
+  const pageNumber = pageNumberFn(cardId, face)
   let colNumber
   if (face === 'recto') {
     colNumber = (cardId % 6) % 3

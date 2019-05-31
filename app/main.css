@@ -1,0 +1,34 @@
+.unlock-logo {
+  vertical-align: middle;
+}
+
+.btn--load {
+  height: 64px;
+}
+
+.cards .column {
+    padding: .4rem;
+}
+
+.card {
+  position: relative;
+}
+
+.card[data-face="recto"] .verso,
+.card[data-face="verso"] .recto {
+  display: none;
+}
+
+.card .card-image {
+  padding-top: 0;
+}
+
+.card-footer {
+  position: absolute;
+  bottom: 0;
+  display: none;
+}
+
+.card:hover .card-footer {
+  display: block;
+}

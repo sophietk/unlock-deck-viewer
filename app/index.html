@@ -1,30 +1,69 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Unlock deck viewer</title>
-    <link rel="stylesheet" type="text/css" href="main.css">
-  </head>
-  <body>
-    <h1>
-      <img class="unlock-logo" src="https://images-fr-cdn.asmodee.com/eu-central-1/filer_public/df/e3/dfe325d8-c061-4d68-9dbf-3e824e8f71e9/unlock_logo_940x400-02.png" alt="Unlock" width="100">
-      deck viewer
-    </h1>
 
-    <p>
-      Select a deck :
-      <select id="deckId"></select>
-    </p>
-    <p>
-      How many cards :
-      <input id="nbCards" type="number" value="24"></input>
-    </p>
-    <p>
-      <button>Load deck</button>
-    </p>
+<head>
+  <meta charset="utf-8">
+  <title>Unlock deck viewer</title>
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+  <link rel="stylesheet" type="text/css" href="main.css">
+</head>
 
-    <div class="cards"></div>
+<body>
+  <h1>
+    <img class="unlock-logo" src="https://images-fr-cdn.asmodee.com/eu-central-1/filer_public/df/e3/dfe325d8-c061-4d68-9dbf-3e824e8f71e9/unlock_logo_940x400-02.png" alt="Unlock" width="100">
+    deck viewer
+  </h1>
 
-    <script src="main.js" charset="utf-8"></script>
-  </body>
+  <div class="container">
+    <div class="columns flex-centered">
+      <div class="column col-3 form-group">
+        <label class="form-label" for="deckId">Select a deck:</label>
+        <select class="form-select" id="deckId"></select>
+      </div>
+      <div class="column col-2 form-group">
+        <label class="form-label" for="nbCards">How many cards:</label>
+        <input class="form-input" type="number" id="nbCards" type="number" value="24">
+      </div>
+      <div class="column col-2">
+        <button class="btn btn-primary btn--load" id="btnLoad">Load deck</button>
+      </div>
+    </div>
+
+    <div class="cards">
+      <div class="column col-12">
+        <div class="empty">
+          <p class="empty-title h5">You have no deck loaded</p>
+          <p class="empty-subtitle">Please choose a deck first</p>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/x-handlebars-template" id="tpl-cards">
+      <div class="container">
+        <div class="columns">
+          {{#each cards}}
+          <div class="column col-2">
+            <div class="card" id="card-{{cardId}}" data-face="recto">
+              <div class="card-image recto">
+                <img src="http://localhost:3000/decks/{{deckId}}/cards/{{cardId}}/recto" class="img-responsive">
+              </div>
+              <div class="card-image verso">
+                <img src="http://localhost:3000/decks/{{deckId}}/cards/{{cardId}}/verso" class="img-responsive">
+              </div>
+              <div class="card-footer">
+                <button class="btn" onclick="flipCard({{cardId}})">flip</button>
+                <button class="btn">zoom</button>
+                <button class="btn">discard</button>
+              </div>
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
+    <script src="main.js"></script>
+</body>
+
 </html>

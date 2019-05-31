@@ -23,3 +23,10 @@ Ensure you have `convert`, `gs`, and `pdfinfo` (part of poppler) commands.
 ## Usage
 
     npm start
+
+## Next features
+
+- show a spinner when flipping a card takes too long
+- zoom into a card
+- discard a card
+- upload a custom pdf

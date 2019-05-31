@@ -3,12 +3,15 @@ const PDFImage = require('pdf-image').PDFImage
 const gm = require('gm').subClass({ imageMagick: true })
 const fs = require('fs')
 const path = require('path')
-const app = express()
 
-const pdfCardWidth = 720
-const pdfCardHeight = 1323
-const pdfMarginLeft = 130
-const pdfMarginTop = 505
+const app = express()
+const referenceDensity = 300
+const currentDensity = 200
+const ratioDensity = currentDensity / referenceDensity
+const pdfCardWidth = 721 * ratioDensity
+const pdfCardHeight = 1323 * ratioDensity
+const pdfMarginLeft = 128 * ratioDensity
+const pdfMarginTop = 505 * ratioDensity
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*')
@@ -68,8 +71,8 @@ app.get('/decks/:deckId/cards/:cardId/:face', (req, res) => {
 const getPage = (pdfPath, pageNumber) => {
   return new PDFImage(pdfPath, {
     convertOptions: {
-      '-interlace': 'none',
-      '-density': '300',
+      // '-interlace': 'none',
+      '-density': currentDensity,
       '-quality': '100'
     }
   })

@@ -16,7 +16,7 @@ app.use((req, res, next) => {
 })
 
 app.get('/decks', (req, res) => {
-  res.send(config.map(({id, name, nbCards}) => ({id, name, nbCards})))
+  res.send(config.map(({ id, name, nbCards }) => ({ id, name, nbCards })))
 })
 
 app.get('/decks/:deckId/cards/:cardId/:face', (req, res) => {
@@ -34,7 +34,7 @@ app.get('/decks/:deckId/cards/:cardId/:face', (req, res) => {
     console.error(err)
   }
 
-  const {pdfCardWidth, pdfCardHeight, pdfMarginLeft, pdfMarginTop, pageNumberFn} = config.find(deck => deck.id === deckId)
+  const { pdfCardWidth, pdfCardHeight, pdfMarginLeft, pdfMarginTop, pageNumberFn } = config.find(deck => deck.id === deckId)
   const pageNumber = pageNumberFn(cardId, face)
   let colNumber
   if (face === 'recto') {

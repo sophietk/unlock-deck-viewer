@@ -3,7 +3,7 @@ const cardsTpl = Handlebars.compile(document.querySelector('#tpl-cards').innerHT
 fetch('http://localhost:3000/decks')
   .then(response => response.json())
   .then(decks => {
-    decks.forEach(({id, name}) => {
+    decks.forEach(({ id, name }) => {
       const option = document.createElement('option')
       option.value = id
       option.text = name
@@ -18,9 +18,9 @@ fetch('http://localhost:3000/decks')
 document.querySelector('#btnLoad').addEventListener('click', () => {
   const deckId = document.querySelector('#deckId').value
   const nbCards = document.querySelector('#nbCards').value
-  const cardIds = Array.from({length: nbCards}, (v, k) => k)
+  const cardIds = Array.from({ length: nbCards }, (v, k) => k)
 
-  document.querySelector('.cards').innerHTML = cardsTpl({cards: cardIds.map(cardId => ({cardId, deckId}))})
+  document.querySelector('.cards').innerHTML = cardsTpl({ cards: cardIds.map(cardId => ({ cardId, deckId })) })
 })
 
 const flip = (cardId) => {

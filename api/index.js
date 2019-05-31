@@ -1,6 +1,7 @@
 const express = require('express')
 const PDFImage = require('pdf-image').PDFImage
 const gm = require('gm').subClass({imageMagick: true})
+const fs = require('fs')
 const app = express()
 
 const pdfCardWidth = 720
@@ -8,8 +9,29 @@ const pdfCardHeight = 1323
 const pdfMarginLeft = 130
 const pdfMarginTop = 505
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+  next()
+})
+
 app.get('/', (req, res) => {
   res.send('Back')
+})
+
+app.get('/decks', (req, res) => {
+  fs.readdir(__dirname + '/decks/', function (err, files) {
+    if (err) {
+      console.error(err)
+      res.status(500).send(err)
+      return
+    }
+
+    const decks = files
+      .filter(file => file.includes('.pdf'))
+      .map(file => file.replace('.pdf', ''))
+    res.send(decks)
+  })
 })
 
 app.get('/decks/:deckId/pages/:pageId', (req, res) => {

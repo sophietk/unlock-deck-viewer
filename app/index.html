@@ -1,32 +1,63 @@
-Front
+<h1>
+  <img class="unlock-logo" src="https://images-fr-cdn.asmodee.com/eu-central-1/filer_public/df/e3/dfe325d8-c061-4d68-9dbf-3e824e8f71e9/unlock_logo_940x400-02.png" alt="Unlock" width="100">
+  deck viewer
+</h1>
 
-Page:
-<!-- <img src="http://localhost:3000/decks/59baa2_d7f24d940eea4cfa89b7400dfb581459/pages/0"> -->
+<p>
+  Select a deck :
+  <select id="deckId"></select>
+</p>
+<p>
+  How many cards :
+  <input id="nbCards" type="number" value="24"></input>
+</p>
+<p>
+  <button>Load deck</button>
+</p>
 
-Cards:
-<img width="100" src="http://localhost:3000/decks/59baa2_d7f24d940eea4cfa89b7400dfb581459/cards/0/recto">
-<img width="100" src="http://localhost:3000/decks/59baa2_d7f24d940eea4cfa89b7400dfb581459/cards/1/recto">
-<img width="100" src="http://localhost:3000/decks/59baa2_d7f24d940eea4cfa89b7400dfb581459/cards/2/recto">
-<img width="100" src="http://localhost:3000/decks/59baa2_d7f24d940eea4cfa89b7400dfb581459/cards/3/recto">
-<img width="100" src="http://localhost:3000/decks/59baa2_d7f24d940eea4cfa89b7400dfb581459/cards/4/recto">
-<img width="100" src="http://localhost:3000/decks/59baa2_d7f24d940eea4cfa89b7400dfb581459/cards/5/recto">
-
-<img width="100" src="http://localhost:3000/decks/59baa2_d7f24d940eea4cfa89b7400dfb581459/cards/6/recto">
-<img width="100" src="http://localhost:3000/decks/59baa2_d7f24d940eea4cfa89b7400dfb581459/cards/7/recto">
-<img width="100" src="http://localhost:3000/decks/59baa2_d7f24d940eea4cfa89b7400dfb581459/cards/8/recto">
-<img width="100" src="http://localhost:3000/decks/59baa2_d7f24d940eea4cfa89b7400dfb581459/cards/9/recto">
-<img width="100" src="http://localhost:3000/decks/59baa2_d7f24d940eea4cfa89b7400dfb581459/cards/10/recto">
-<img width="100" src="http://localhost:3000/decks/59baa2_d7f24d940eea4cfa89b7400dfb581459/cards/11/recto">
+<div class="cards"></div>
 
 <script type="text/javascript">
-  document.querySelectorAll('img').forEach(function (image) {
-    image.addEventListener('click', function () {
-      const isRecto = image.src.includes('/recto');
-      if (isRecto) {
-        image.src = image.src.replace('/recto', '/verso');
-      } else {
-        image.src = image.src.replace('/verso', '/recto');
-      }
-    });
-  });
+  fetch('http://localhost:3000/decks')
+    .then(function (response) { return response.json() })
+    .then(function (decks) {
+      decks.forEach(function (deckId) {
+        const option = document.createElement('option')
+        option.text = deckId
+        document.querySelector('select').add(option, null)
+      })
+    })
+
+  document.querySelector('button').addEventListener('click', function () {
+    const deckId = document.querySelector('#deckId').value
+    const nbCards = document.querySelector('#nbCards').value
+    document.querySelector('.cards').innerHTML = ''
+    var card;
+    for (card = 0; card < nbCards; card++) {
+      const cardImg = document.createElement('img')
+      cardImg.src = `http://localhost:3000/decks/${deckId}/cards/${card}/recto`
+      cardImg.width = 100
+      cardImg.addEventListener('click', function () {
+        const isRecto = cardImg.src.includes('/recto')
+        if (isRecto) {
+          cardImg.src = cardImg.src.replace('/recto', '/verso')
+        } else {
+          cardImg.src = cardImg.src.replace('/verso', '/recto')
+        }
+      })
+      document.querySelector('.cards').append(cardImg)
+    }
+  })
+
 </script>
+
+<style media="screen">
+h1 {
+  font-size: 2rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.unlock-logo {
+  vertical-align: middle;
+}
+</style>

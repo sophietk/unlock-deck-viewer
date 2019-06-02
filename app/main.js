@@ -44,3 +44,11 @@ const discard = (cardId) => {
   const cardEl = document.querySelector(`#card-${cardId}`)
   cardEl.classList.add('discarded')
 }
+
+const toggleFullscreen = () => {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen()
+  } else {
+    document.exitFullscreen()
+  }
+}

@@ -65,6 +65,8 @@ const modalZoomEl = document.querySelector('#modal-zoom')
 
 const zoom = (deckId, cardId, face) => {
   modalZoomEl.querySelector('img').src = `http://localhost:3000/decks/${deckId}/cards/${cardId}/${face}`
+  modalZoomEl.querySelector('img').classList.remove('rotate')
+  modalZoomEl.querySelector('.modal-body').style.overflowY = 'auto'
   modalZoomEl.classList.add('active')
 }
 
@@ -72,6 +74,13 @@ const closeZoom = () => {
   modalZoomEl.classList.remove('active')
 }
 modalZoomEl.addEventListener('click', closeZoom)
+
+const rotateZoom = e => {
+  e.stopPropagation()
+  modalZoomEl.querySelector('img').classList.toggle('rotate')
+  modalZoomEl.querySelector('.modal-body').style.overflowY = 'initial'
+}
+modalZoomEl.querySelector('.link-rotate').addEventListener('click', rotateZoom)
 
 const toggleFullscreen = () => {
   if (!document.fullscreenElement) {

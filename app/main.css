@@ -41,3 +41,11 @@
 .modal-container {
   max-height: 100vh;
 }
+
+.modal-container img {
+  width: 500px;
+}
+
+.rotate {
+  transform: rotate(90deg);
+}

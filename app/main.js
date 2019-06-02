@@ -34,7 +34,8 @@ document.querySelector('#btnLoad').addEventListener('click', () => {
     })
     cardEl.querySelector('[data-action="zoom"]').addEventListener('click', event => {
       event.stopPropagation()
-      zoom(deckId, cardId)
+      const face = cardEl.dataset.face
+      zoom(deckId, cardId, face)
     })
     cardEl.querySelector('[data-action="discard"]').addEventListener('click', event => {
       event.stopPropagation()
@@ -49,9 +50,9 @@ const flip = (cardId) => {
   cardEl.dataset.face = isRecto ? 'verso' : 'recto'
 }
 
-const zoom = (deckId, cardId) => {
+const zoom = (deckId, cardId, face) => {
   const modal = document.querySelector('#modal-zoom')
-  modal.querySelector('img').src = `http://localhost:3000/decks/${deckId}/cards/${cardId}/verso`
+  modal.querySelector('img').src = `http://localhost:3000/decks/${deckId}/cards/${cardId}/${face}`
   modal.classList.add('active')
 }
 

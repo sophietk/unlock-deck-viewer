@@ -89,3 +89,4 @@ const toggleFullscreen = () => {
     document.exitFullscreen()
   }
 }
+document.querySelector('#btnFullscreen').addEventListener('click', toggleFullscreen)

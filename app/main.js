@@ -22,6 +22,25 @@ document.querySelector('#btnLoad').addEventListener('click', () => {
   const cardIds = Array.from({ length: nbCards }, (v, k) => k)
 
   document.querySelector('.cards').innerHTML = cardsTpl({ cards: cardIds.map(cardId => ({ cardId, deckId })) })
+  document.querySelectorAll('.card').forEach(cardEl => {
+    const cardId = cardEl.dataset.id
+    cardEl.addEventListener('click', event => {
+      event.stopPropagation()
+      flip(cardId)
+    })
+    cardEl.querySelector('[data-action="flip"]').addEventListener('click', event => {
+      event.stopPropagation()
+      flip(cardId)
+    })
+    cardEl.querySelector('[data-action="zoom"]').addEventListener('click', event => {
+      event.stopPropagation()
+      zoom(deckId, cardId)
+    })
+    cardEl.querySelector('[data-action="discard"]').addEventListener('click', event => {
+      event.stopPropagation()
+      discard(cardId)
+    })
+  })
 })
 
 const flip = (cardId) => {

@@ -12,6 +12,7 @@
 
 .card {
   position: relative;
+  cursor: pointer;
 }
 
 .card[data-face="recto"] .verso-only,

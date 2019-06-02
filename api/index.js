@@ -34,8 +34,8 @@ app.get('/decks/:deckId/cards/:cardId/:face', (req, res) => {
     console.error(err)
   }
 
-  const { pdfCardWidth, pdfCardHeight, pdfMarginLeft, pdfMarginTop, pageNumberFn } = config.find(deck => deck.id === deckId)
-  const pageNumber = pageNumberFn(cardId, face)
+  const { pdfCardWidth, pdfCardHeight, pdfMarginLeft, pdfMarginTop, getPageNumber } = config.find(deck => deck.id === deckId)
+  const pageNumber = getPageNumber(cardId, face)
   let colNumber
   if (face === 'recto') {
     colNumber = (cardId % 6) % 3

@@ -12,7 +12,7 @@ module.exports = [
     pdfMarginLeft: 146 * ratioDensity,
     pdfMarginTop: 276 * ratioDensity,
     nbCards: 27,
-    pageNumberFn: (cardId, face) => {
+    getPageNumber: (cardId, face) => {
       let pageNumber = Math.floor(cardId / 6) * 2 + 1
       return face === 'recto' ? pageNumber : pageNumber - 1
     }
@@ -26,7 +26,7 @@ module.exports = [
     pdfMarginLeft: 128 * ratioDensity,
     pdfMarginTop: 505 * ratioDensity,
     nbCards: 24,
-    pageNumberFn: (cardId, face) => {
+    getPageNumber: (cardId, face) => {
       let pageNumber = Math.floor(cardId / 6) * 2
       if (face === 'recto') {
         pageNumber = (pageNumber % 4) ? pageNumber + 1 : pageNumber
@@ -45,7 +45,7 @@ module.exports = [
     pdfMarginLeft: 146 * ratioDensity,
     pdfMarginTop: 276 * ratioDensity,
     nbCards: 21,
-    pageNumberFn: (cardId, face) => {
+    getPageNumber: (cardId, face) => {
       let pageNumber = Math.floor(cardId / 6) * 2 + 1
       return face === 'recto' ? pageNumber : pageNumber - 1
     }
@@ -59,7 +59,7 @@ module.exports = [
     pdfMarginLeft: 128 * ratioDensity,
     pdfMarginTop: 505 * ratioDensity,
     nbCards: 24,
-    pageNumberFn: (cardId, face) => {
+    getPageNumber: (cardId, face) => {
       let pageNumber = Math.floor(cardId / 6) * 2
       if (face === 'recto') {
         pageNumber = (pageNumber % 4) ? pageNumber + 1 : pageNumber
@@ -78,7 +78,7 @@ module.exports = [
     pdfMarginLeft: 146 * ratioDensity,
     pdfMarginTop: 276 * ratioDensity,
     nbCards: 24,
-    pageNumberFn: (cardId, face) => {
+    getPageNumber: (cardId, face) => {
       let pageNumber = Math.floor(cardId / 6) * 2 + 1
       return face === 'recto' ? pageNumber : pageNumber - 1
     }

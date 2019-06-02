@@ -16,7 +16,7 @@ app.use((req, res, next) => {
 })
 
 app.get('/decks', (req, res) => {
-  res.send(config.map(({ id, name, nbCards }) => ({ id, name, nbCards })))
+  res.send(config.map(({ id, name, difficulty, nbCards }) => ({ id, name, difficulty, nbCards })))
 })
 
 app.get('/decks/:deckId/cards/:cardId/:face', (req, res) => {

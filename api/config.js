@@ -6,6 +6,7 @@ module.exports = [
   {
     id: '59baa2_b414561726024995b66b03ecef774c8b',
     name: 'La 5e avenue',
+    difficulty: '★☆☆',
     pdfCardWidth: 721 * ratioDensity,
     pdfCardHeight: 1323 * ratioDensity,
     pdfMarginLeft: 146 * ratioDensity,
@@ -19,6 +20,7 @@ module.exports = [
   {
     id: '59baa2_d7f24d940eea4cfa89b7400dfb581459',
     name: 'Le donjon de Doo-Arann',
+    difficulty: '★★☆',
     pdfCardWidth: 721 * ratioDensity,
     pdfCardHeight: 1323 * ratioDensity,
     pdfMarginLeft: 128 * ratioDensity,
@@ -37,6 +39,7 @@ module.exports = [
   {
     id: '59baa2_fcba9236512e4b2b912e26150ca01264',
     name: 'L’élite',
+    difficulty: '★★☆',
     pdfCardWidth: 721 * ratioDensity,
     pdfCardHeight: 1323 * ratioDensity,
     pdfMarginLeft: 146 * ratioDensity,
@@ -50,6 +53,7 @@ module.exports = [
   {
     id: '59baa2_ec1d34bb0fe246069dd7dc12ebf8697d',
     name: 'À la poursuite de Cabrakan',
+    difficulty: '★★☆',
     pdfCardWidth: 721 * ratioDensity,
     pdfCardHeight: 1323 * ratioDensity,
     pdfMarginLeft: 128 * ratioDensity,
@@ -68,6 +72,7 @@ module.exports = [
   {
     id: '59baa2_164fbfd3e76b4dbcb46282074693f098',
     name: 'Le temple de RA',
+    difficulty: '★★★',
     pdfCardWidth: 721 * ratioDensity,
     pdfCardHeight: 1323 * ratioDensity,
     pdfMarginLeft: 146 * ratioDensity,

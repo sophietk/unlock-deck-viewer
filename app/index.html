@@ -16,15 +16,15 @@
 
   <div class="container">
     <div class="columns flex-centered">
-      <div class="column col-3 form-group">
+      <div class="column col-3 col-md-4 form-group">
         <label class="form-label" for="deckId">Select a deck:</label>
         <select class="form-select" id="deckId"></select>
       </div>
-      <div class="column col-2 form-group">
+      <div class="column col-2 col-md-4 form-group">
         <label class="form-label" for="nbCards">How many cards:</label>
         <input class="form-input" type="number" id="nbCards" type="number" value="24">
       </div>
-      <div class="column col-2">
+      <div class="column col-2 col-md-4">
         <button class="btn btn-primary btn--load" id="btnLoad">Load deck</button>
         <br><a href="#" onclick="toggleFullscreen()">Toggle full screen</a>
       </div>
@@ -54,7 +54,7 @@
       <div class="container">
         <div class="columns">
           {{#each cards}}
-          <div class="column col-2">
+          <div class="column col-2 col-md-4">
             <div class="card" id="card-{{cardId}}" data-face="recto" data-id="{{cardId}}">
               <div class="card-image recto-only">
                 <img src="http://localhost:3000/decks/{{deckId}}/cards/{{cardId}}/recto" class="img-responsive">

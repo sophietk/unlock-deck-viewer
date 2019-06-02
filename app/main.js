@@ -9,6 +9,7 @@ fetch('http://localhost:3000/decks')
       option.text = name
       document.querySelector('select').add(option, null)
     })
+    document.querySelector('#nbCards').value = decks[0].nbCards
     document.querySelector('select').addEventListener('change', event => {
       const selectedDeckId = event.target.value
       document.querySelector('#nbCards').value = decks.find(deck => deck.id === selectedDeckId).nbCards

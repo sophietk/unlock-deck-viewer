@@ -8,7 +8,9 @@
 
 ## Installation
 
-    npm i unlock-deck-viewer
+    git clone https://github.com/sophietk/unlock-deck-viewer.git
+    cd unlock-deck-viewer
+    npm i
 
 Ensure you have `convert`, `gs`, and `pdfinfo` (part of poppler) commands.
 

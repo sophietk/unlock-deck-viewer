@@ -37,3 +37,7 @@
 .card:hover .card-footer {
   display: block;
 }
+
+.modal-container {
+  max-height: 100vh;
+}

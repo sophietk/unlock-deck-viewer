@@ -51,15 +51,9 @@ document.querySelector('#btnLoad').addEventListener('click', () => {
 const flip = (cardId) => {
   const cardEl = document.querySelector(`#card-${cardId}`)
   const isRecto = cardEl.dataset.face === 'recto'
-  if (isRecto) {
-    cardEl.dataset.face = 'verso'
-    cardEl.querySelector('[data-action="flip"]').classList.remove('btn-primary')
-    cardEl.querySelector('[data-action="zoom"]').classList.add('btn-primary')
-  } else {
-    cardEl.dataset.face = 'recto'
-    cardEl.querySelector('[data-action="flip"]').classList.add('btn-primary')
-    cardEl.querySelector('[data-action="zoom"]').classList.remove('btn-primary')
-  }
+  cardEl.dataset.face = isRecto ? 'verso' : 'recto'
+  cardEl.querySelector('[data-action="flip"]').classList.toggle('btn-primary')
+  cardEl.querySelector('[data-action="zoom"]').classList.toggle('btn-primary')
 }
 
 const zoom = (deckId, cardId, face) => {
@@ -75,7 +69,7 @@ document.querySelector('#modal-zoom').addEventListener('click', closeZoom)
 
 const discard = (cardId) => {
   const cardEl = document.querySelector(`#card-${cardId}`)
-  cardEl.classList.add('discarded')
+  cardEl.classList.toggle('discarded')
 }
 
 const toggleFullscreen = () => {

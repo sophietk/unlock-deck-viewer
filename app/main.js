@@ -56,21 +56,22 @@ const flip = (cardId) => {
   cardEl.querySelector('[data-action="zoom"]').classList.toggle('btn-primary')
 }
 
-const zoom = (deckId, cardId, face) => {
-  const modal = document.querySelector('#modal-zoom')
-  modal.querySelector('img').src = `http://localhost:3000/decks/${deckId}/cards/${cardId}/${face}`
-  modal.classList.add('active')
-}
-
-const closeZoom = () => {
-  document.querySelector('#modal-zoom').classList.remove('active')
-}
-document.querySelector('#modal-zoom').addEventListener('click', closeZoom)
-
 const discard = (cardId) => {
   const cardEl = document.querySelector(`#card-${cardId}`)
   cardEl.classList.toggle('discarded')
 }
+
+const modalZoomEl = document.querySelector('#modal-zoom')
+
+const zoom = (deckId, cardId, face) => {
+  modalZoomEl.querySelector('img').src = `http://localhost:3000/decks/${deckId}/cards/${cardId}/${face}`
+  modalZoomEl.classList.add('active')
+}
+
+const closeZoom = () => {
+  modalZoomEl.classList.remove('active')
+}
+modalZoomEl.addEventListener('click', closeZoom)
 
 const toggleFullscreen = () => {
   if (!document.fullscreenElement) {

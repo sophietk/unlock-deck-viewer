@@ -4,6 +4,20 @@ const ratioDensity = currentDensity / referenceDensity
 
 module.exports = [
   {
+    id: 'tutorial',
+    name: 'Tutoriel',
+    difficulty: '☆☆☆',
+    pdfCardWidth: 721 * ratioDensity,
+    pdfCardHeight: 1323 * ratioDensity,
+    pdfMarginLeft: 146 * ratioDensity,
+    pdfMarginTop: 276 * ratioDensity,
+    nbCards: 12,
+    getPageNumber: (cardId, face) => {
+      let pageNumber = Math.floor(cardId / 6) * 2 + 1
+      return face === 'recto' ? pageNumber : pageNumber - 1
+    }
+  },
+  {
     id: '59baa2_b414561726024995b66b03ecef774c8b',
     name: 'La 5e avenue',
     difficulty: '★☆☆',

@@ -14,11 +14,15 @@
 
 Ensure you have `convert`, `gs`, and `pdfinfo` (part of poppler) commands.
 
-### Ubuntu
+### Linux
 
-    sudo apt-get install imagemagick ghostscript poppler-utils
+    sudo apt install imagemagick ghostscript poppler-utils
 
-### OSX (Yosemite)
+If you get a `unable to open file` error, please check that the ImageMagick policy is well set for PDF files:
+- edit file `/etc/ImageMagick-7/policy.xml`
+- replace rights in line `<policy domain="coder" rights="none" pattern="PDF" />` by `read|write` instead of `none`.
+
+### Mac OS
 
     brew install imagemagick ghostscript poppler
 

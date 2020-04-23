@@ -30,4 +30,4 @@ If you get a `unable to open file` error, please check that the ImageMagick poli
 
     npm start
 
-And go to http://localhost
+And go to http://localhost:4000

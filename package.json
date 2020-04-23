@@ -8,7 +8,7 @@
     "lint:js": "standard",
     "start": "run-p serve:*",
     "serve:api": "nodemon api",
-    "serve:app": "http-server app -p 80"
+    "serve:app": "http-server app -p 4000"
   },
   "repository": {
     "type": "git",

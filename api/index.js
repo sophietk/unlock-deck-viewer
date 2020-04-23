@@ -25,13 +25,9 @@ app.get('/decks/:deckId/cards/:cardId/:face', (req, res) => {
   const face = req.params.face
 
   const cardPath = path.join(__dirname, `/decks/${deckId}-card-${cardId}-${face}.jpg`)
-  try {
-    if (fs.existsSync(cardPath)) {
-      res.sendFile(cardPath)
-      return
-    }
-  } catch (err) {
-    console.error(err)
+  if (fs.existsSync(cardPath)) {
+    res.sendFile(cardPath)
+    return
   }
 
   const { pdfCardWidth, pdfCardHeight, pdfMarginLeft, pdfMarginTop, getPageNumber } = config.find(deck => deck.id === deckId)

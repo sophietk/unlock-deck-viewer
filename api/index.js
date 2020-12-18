@@ -24,7 +24,7 @@ app.get('/decks/:deckId/cards/:cardId/:face', (req, res) => {
 
   const cardPath = path.join(__dirname, `/decks/${deckId}-card-${cardId}-${face}.jpg`)
   if (fs.existsSync(cardPath)) {
-    res.sendFile(cardPath)
+    setTimeout(() => res.sendFile(cardPath), 10)
     return
   }
 

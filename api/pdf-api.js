@@ -4,13 +4,16 @@ const fs = require('fs')
 const { promisify } = require('util')
 
 const { zoom } = require('./config')
-
 const NodeCanvasFactory = require('./node-canvas-factory')
+
+const wait = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 const getPage = (pdfPath, pageNumber) => {
   const pagePath = `${pdfPath.split('.pdf')[0]}-${pageNumber}.png`
   if (fs.existsSync(pagePath)) {
-    return Promise.resolve(pagePath)
+    return Promise.resolve()
+      .then(() => wait(10))
+      .then(() => pagePath)
   }
 
   const rawPdf = new Uint8Array(fs.readFileSync(pdfPath))

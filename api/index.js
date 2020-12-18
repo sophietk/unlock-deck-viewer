@@ -4,7 +4,7 @@ const { promisify } = require('util')
 const express = require('express')
 
 const { decks } = require('./config')
-const { getPage, cropImage } = require('./pdf-api')
+const { getPage, cropImage } = require('./pdf-img-api')
 
 const app = express()
 

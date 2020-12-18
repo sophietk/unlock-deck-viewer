@@ -15,22 +15,8 @@
     cd unlock-deck-viewer
     npm i
 
-Ensure you have `convert`, `gs`, and `pdfinfo` (part of poppler) commands.
-
-### Linux
-
-    sudo apt install imagemagick ghostscript poppler-utils
-
-If you get a `unable to open file` error, please check that the ImageMagick policy is well set for PDF files:
-- edit file `/etc/ImageMagick-7/policy.xml`
-- replace rights in line `<policy domain="coder" rights="none" pattern="PDF" />` by `read|write` instead of `none`.
-
-### Mac OS
-
-    brew install imagemagick ghostscript poppler
-
 ## Usage
 
     npm start
 
-And go to http://localhost:4000
+And go playing on http://localhost:4000

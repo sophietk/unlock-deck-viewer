@@ -1,5 +1,5 @@
 const pdfJs = require('pdfjs-dist')
-const gm = require('gm').subClass({ imageMagick: true })
+const jimp = require('jimp')
 const fs = require('fs')
 const { promisify } = require('util')
 
@@ -40,17 +40,11 @@ const getPage = (pdfPath, pageNumber) => {
 }
 
 const cropImage = (srcPath, width, height, marginLeft, marginTop, destPath) => {
-  return new Promise((resolve, reject) => {
-    gm(srcPath)
-      .crop(width, height, marginLeft, marginTop)
-      .write(destPath, err => {
-        if (err) {
-          reject(err)
-          return
-        }
-        resolve(destPath)
-      })
-  })
+  return jimp.read(srcPath)
+    .then(image => image.crop(marginLeft, marginTop, width, height)
+      .writeAsync(destPath)
+    )
+    .then(() => destPath)
 }
 
 module.exports = { getPage, cropImage }

@@ -1,8 +1,33 @@
 const express = require('express')
-const PDFImage = require('pdf-image').PDFImage
+const pdfJs = require('pdfjs-dist')
 const gm = require('gm').subClass({ imageMagick: true })
 const fs = require('fs')
 const path = require('path')
+const Canvas = require('canvas')
+
+function NodeCanvasFactory () {}
+NodeCanvasFactory.prototype = {
+  create (width, height) {
+    const canvas = Canvas.createCanvas(width, height)
+    const context = canvas.getContext('2d')
+    return {
+      canvas: canvas,
+      context: context
+    }
+  },
+
+  reset (canvasAndContext, width, height) {
+    canvasAndContext.canvas.width = width
+    canvasAndContext.canvas.height = height
+  },
+
+  destroy (canvasAndContext) {
+    canvasAndContext.canvas.width = 0
+    canvasAndContext.canvas.height = 0
+    canvasAndContext.canvas = null
+    canvasAndContext.context = null
+  }
+}
 
 const config = require('./config')
 
@@ -53,14 +78,43 @@ app.get('/decks/:deckId/cards/:cardId/:face', (req, res) => {
 })
 
 const getPage = (pdfPath, pageNumber) => {
-  return new PDFImage(pdfPath, {
-    convertOptions: {
-      // '-interlace': 'none',
-      '-density': currentDensity,
-      '-quality': '100'
-    }
-  })
-    .convertPage(pageNumber)
+  const pagePath = `${pdfPath.split('.pdf')[0]}-${pageNumber}.png`
+  if (fs.existsSync(pagePath)) {
+    return Promise.resolve(pagePath)
+  }
+
+  const rawPdf = new Uint8Array(fs.readFileSync(pdfPath))
+  return pdfJs.getDocument(rawPdf)
+    .promise
+    .then(pdfDocument => pdfDocument.getPage(pageNumber + 1))
+    .then(page => {
+      const viewport = page.getViewport({ scale: 1.0 })
+      const canvasFactory = new NodeCanvasFactory()
+      const canvasAndContext = canvasFactory.create(
+        viewport.width,
+        viewport.height
+      )
+      const renderContext = {
+        canvasContext: canvasAndContext.context,
+        viewport: viewport,
+        canvasFactory: canvasFactory
+      }
+      return page.render(renderContext)
+        .promise
+        .then(() => {
+          const image = canvasAndContext.canvas.toBuffer()
+          fs.writeFile(pagePath, image, function (error) {
+            if (error) {
+              console.error('Error: ' + error)
+            } else {
+              console.log(
+                'Finished converting first page of PDF file to a PNG image.'
+              )
+            }
+          })
+        })
+    })
+    .then(() => pagePath)
 }
 
 const cropImage = (srcPath, width, height, marginLeft, marginTop, destPath) => {
@@ -83,13 +137,12 @@ app.delete('/cards', (req, res) => {
 
   try {
     fs.readdirSync(cardsRootPath)
-        .filter(f => regex.test(f))
-        .map(f => fs.unlinkSync(cardsRootPath + f))
+      .filter(f => regex.test(f))
+      .map(f => fs.unlinkSync(cardsRootPath + f))
     res.status(204).send()
-  } catch(err) {
+  } catch (err) {
     console.error(err)
     res.status(500).send(err)
-    return
   }
 })
 

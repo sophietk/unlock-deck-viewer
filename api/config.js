@@ -32,8 +32,22 @@ module.exports = [
     }
   },
   {
-    id: '59baa2_d7f24d940eea4cfa89b7400dfb581459',
-    name: 'Le donjon de Doo-Arann',
+    id: '59baa2_fcba9236512e4b2b912e26150ca01264',
+    name: 'L’élite',
+    difficulty: '★★☆',
+    pdfCardWidth: 721 * ratioDensity,
+    pdfCardHeight: 1323 * ratioDensity,
+    pdfMarginLeft: 146 * ratioDensity,
+    pdfMarginTop: 276 * ratioDensity,
+    nbCards: 21,
+    getPageNumber: (cardId, face) => {
+      let pageNumber = Math.floor(cardId / 6) * 2 + 1
+      return face === 'recto' ? pageNumber : pageNumber - 1
+    }
+  },
+  {
+    id: '59baa2_ec1d34bb0fe246069dd7dc12ebf8697d',
+    name: 'À la poursuite de Cabrakan',
     difficulty: '★★☆',
     pdfCardWidth: 721 * ratioDensity,
     pdfCardHeight: 1323 * ratioDensity,
@@ -51,22 +65,8 @@ module.exports = [
     }
   },
   {
-    id: '59baa2_fcba9236512e4b2b912e26150ca01264',
-    name: 'L’élite',
-    difficulty: '★★☆',
-    pdfCardWidth: 721 * ratioDensity,
-    pdfCardHeight: 1323 * ratioDensity,
-    pdfMarginLeft: 146 * ratioDensity,
-    pdfMarginTop: 276 * ratioDensity,
-    nbCards: 21,
-    getPageNumber: (cardId, face) => {
-      let pageNumber = Math.floor(cardId / 6) * 2 + 1
-      return face === 'recto' ? pageNumber : pageNumber - 1
-    }
-  },
-  {
-    id: '59baa2_ec1d34bb0fe246069dd7dc12ebf8697d',
-    name: 'À la poursuite de Cabrakan',
+    id: '59baa2_d7f24d940eea4cfa89b7400dfb581459',
+    name: 'Le donjon de Doo-Arann',
     difficulty: '★★☆',
     pdfCardWidth: 721 * ratioDensity,
     pdfCardHeight: 1323 * ratioDensity,

@@ -64,10 +64,7 @@ const getPage = (pdfPath, pageNumber) => {
     .then(page => {
       const viewport = page.getViewport({ scale: zoom });
       const canvasFactory = new NodeCanvasFactory()
-      const canvasAndContext = canvasFactory.create(
-        viewport.width,
-        viewport.height
-      )
+      const canvasAndContext = canvasFactory.create(viewport.width, viewport.height)
       const renderContext = {
         canvasContext: canvasAndContext.context,
         viewport: viewport,
@@ -78,9 +75,6 @@ const getPage = (pdfPath, pageNumber) => {
         .then(() => {
           const image = canvasAndContext.canvas.toBuffer()
           return promisify(fs.writeFile)(pagePath, image)
-            .catch(error => {
-              console.error(err)
-            })
         })
     })
     .then(() => pagePath)
@@ -102,17 +96,21 @@ const cropImage = (srcPath, width, height, marginLeft, marginTop, destPath) => {
 
 app.delete('/cards', (req, res) => {
   const cardsRootPath = path.join(__dirname, `/decks/`)
-  let regex = /[.](png|jpg)$/
+  let generatedImageRegex = /[.](png|jpg)$/
 
-  try {
-    fs.readdirSync(cardsRootPath)
-      .filter(f => regex.test(f))
-      .map(f => fs.unlinkSync(path.join(cardsRootPath, f)))
-    res.status(204).send()
-  } catch (err) {
-    console.error(err)
-    res.status(500).send(err)
-  }
+  promisify(fs.readdir)(cardsRootPath)
+    .then(files => files
+      .filter(file => generatedImageRegex.test(file))
+      .map(file => promisify(fs.unlink)(path.join(cardsRootPath, file)))
+    )
+    .then(deletePromises => Promise.all(deletePromises))
+    .then(() => {
+      res.status(204).send()
+    })
+    .catch(err => {
+      console.error(err)
+      res.status(500).send(err)
+    })
 })
 
 app.listen(3000, () => {

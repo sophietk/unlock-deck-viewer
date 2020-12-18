@@ -1,4 +1,4 @@
-const zoom = 2
+const zoom = 2.89
 const ratioDensity = 0.24 * zoom
 
 module.exports.zoom = zoom

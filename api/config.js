@@ -32,6 +32,21 @@ module.exports = [
     }
   },
   {
+    id: '59baa2_f33934a78d5b438e8cd3dafc2ae1b07f',
+    name: 'Le foie de l’Axolotl',
+    difficulty: '★☆☆',
+    pdfCardWidth: 721 * ratioDensity,
+    pdfCardHeight: 1323 * ratioDensity,
+    pdfMarginLeft: 160 * ratioDensity,
+    pdfMarginTop: 426 * ratioDensity,
+    nbCards: 24,
+    getPageNumber: (cardId, face) => {
+      const pdfPagesToSkip = 2
+      let pageNumber = Math.floor(cardId / 6) * 2 + pdfPagesToSkip
+      return face === 'recto' ? pageNumber : pageNumber + 1
+    }
+  },
+  {
     id: '59baa2_fcba9236512e4b2b912e26150ca01264',
     name: 'L’élite',
     difficulty: '★★☆',

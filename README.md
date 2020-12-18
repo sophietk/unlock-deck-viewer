@@ -6,6 +6,9 @@
 2. Choose the deck on the application
 3. Flip cards, zoom and enjoy!
 
+<img src="screenshot-01.png" height="200"> <img src="screenshot-02.png" height="200"> <img src="screenshot-03.png" height="200">
+
+
 ## Installation
 
     git clone https://github.com/sophietk/unlock-deck-viewer.git

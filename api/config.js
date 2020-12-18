@@ -1,7 +1,9 @@
 const zoom = 2
 const ratioDensity = 0.24 * zoom
 
-module.exports = [
+module.exports.zoom = zoom
+
+module.exports.decks = [
   {
     id: '59baa2_5dbfd556434846bf8754ca4116101f37',
     name: 'Tutoriel',

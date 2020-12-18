@@ -1,37 +1,12 @@
 const fs = require('fs')
 const path = require('path')
-const util = require('util')
+const { promisify } = require('util')
 const express = require('express')
 const pdfJs = require('pdfjs-dist')
 const gm = require('gm').subClass({ imageMagick: true })
-const Canvas = require('canvas')
-const zoom = 2
+const NodeCanvasFactory = require('./node-canvas-factory')
 
-function NodeCanvasFactory () {}
-NodeCanvasFactory.prototype = {
-  create (width, height) {
-    const canvas = Canvas.createCanvas(width, height)
-    const context = canvas.getContext('2d')
-    return {
-      canvas: canvas,
-      context: context
-    }
-  },
-
-  reset (canvasAndContext, width, height) {
-    canvasAndContext.canvas.width = width
-    canvasAndContext.canvas.height = height
-  },
-
-  destroy (canvasAndContext) {
-    canvasAndContext.canvas.width = 0
-    canvasAndContext.canvas.height = 0
-    canvasAndContext.canvas = null
-    canvasAndContext.context = null
-  }
-}
-
-const config = require('./config')
+const { decks, zoom } = require('./config')
 
 const app = express()
 
@@ -43,13 +18,11 @@ app.use((req, res, next) => {
 })
 
 app.get('/decks', (req, res) => {
-  res.send(config.map(({ id, name, difficulty, nbCards }) => ({ id, name, difficulty, nbCards })))
+  res.send(decks.map(({ id, name, difficulty, nbCards }) => ({ id, name, difficulty, nbCards })))
 })
 
 app.get('/decks/:deckId/cards/:cardId/:face', (req, res) => {
-  const deckId = req.params.deckId
-  const cardId = req.params.cardId
-  const face = req.params.face
+  const { deckId, cardId, face } = req.params
 
   const cardPath = path.join(__dirname, `/decks/${deckId}-card-${cardId}-${face}.jpg`)
   if (fs.existsSync(cardPath)) {
@@ -57,7 +30,7 @@ app.get('/decks/:deckId/cards/:cardId/:face', (req, res) => {
     return
   }
 
-  const { pdfCardWidth, pdfCardHeight, pdfMarginLeft, pdfMarginTop, getPageNumber } = config.find(deck => deck.id === deckId)
+  const { pdfCardWidth, pdfCardHeight, pdfMarginLeft, pdfMarginTop, getPageNumber } = decks.find(deck => deck.id === deckId)
   const pageNumber = getPageNumber(cardId, face)
   let colNumber
   if (face === 'recto') {
@@ -88,7 +61,7 @@ const getPage = (pdfPath, pageNumber) => {
   return pdfJs.getDocument(rawPdf)
     .promise
     .then(pdfDocument => pdfDocument.getPage(pageNumber + 1))
-    .then(async function (page) {
+    .then(page => {
       const viewport = page.getViewport({ scale: zoom });
       const canvasFactory = new NodeCanvasFactory()
       const canvasAndContext = canvasFactory.create(
@@ -104,7 +77,7 @@ const getPage = (pdfPath, pageNumber) => {
         .promise
         .then(() => {
           const image = canvasAndContext.canvas.toBuffer()
-          return util.promisify(fs.writeFile)(pagePath, image)
+          return promisify(fs.writeFile)(pagePath, image)
             .catch(error => {
               console.error(err)
             })
@@ -134,7 +107,7 @@ app.delete('/cards', (req, res) => {
   try {
     fs.readdirSync(cardsRootPath)
       .filter(f => regex.test(f))
-      .map(f => fs.unlinkSync(cardsRootPath + f))
+      .map(f => fs.unlinkSync(path.join(cardsRootPath, f)))
     res.status(204).send()
   } catch (err) {
     console.error(err)

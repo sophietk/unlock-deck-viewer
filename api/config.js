@@ -4,7 +4,7 @@ const ratioDensity = currentDensity / referenceDensity
 
 module.exports = [
   {
-    id: 'tutorial',
+    id: '59baa2_5dbfd556434846bf8754ca4116101f37',
     name: 'Tutoriel',
     difficulty: '☆☆☆',
     pdfCardWidth: 721 * ratioDensity,

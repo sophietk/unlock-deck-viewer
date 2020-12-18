@@ -1,6 +1,5 @@
-const referenceDensity = 300
-const currentDensity = 200
-const ratioDensity = currentDensity / referenceDensity
+const zoom = 2
+const ratioDensity = 0.24 * zoom
 
 module.exports = [
   {

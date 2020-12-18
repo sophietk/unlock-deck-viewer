@@ -1,9 +1,11 @@
+const fs = require('fs')
+const path = require('path')
+const util = require('util')
 const express = require('express')
 const pdfJs = require('pdfjs-dist')
 const gm = require('gm').subClass({ imageMagick: true })
-const fs = require('fs')
-const path = require('path')
 const Canvas = require('canvas')
+const zoom = 2
 
 function NodeCanvasFactory () {}
 NodeCanvasFactory.prototype = {
@@ -32,7 +34,6 @@ NodeCanvasFactory.prototype = {
 const config = require('./config')
 
 const app = express()
-const currentDensity = 200
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*')
@@ -87,8 +88,8 @@ const getPage = (pdfPath, pageNumber) => {
   return pdfJs.getDocument(rawPdf)
     .promise
     .then(pdfDocument => pdfDocument.getPage(pageNumber + 1))
-    .then(page => {
-      const viewport = page.getViewport({ scale: 1.0 })
+    .then(async function (page) {
+      const viewport = page.getViewport({ scale: zoom });
       const canvasFactory = new NodeCanvasFactory()
       const canvasAndContext = canvasFactory.create(
         viewport.width,
@@ -103,15 +104,10 @@ const getPage = (pdfPath, pageNumber) => {
         .promise
         .then(() => {
           const image = canvasAndContext.canvas.toBuffer()
-          fs.writeFile(pagePath, image, function (error) {
-            if (error) {
-              console.error('Error: ' + error)
-            } else {
-              console.log(
-                'Finished converting first page of PDF file to a PNG image.'
-              )
-            }
-          })
+          return util.promisify(fs.writeFile)(pagePath, image)
+            .catch(error => {
+              console.error(err)
+            })
         })
     })
     .then(() => pagePath)

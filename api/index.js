@@ -12,6 +12,7 @@ const currentDensity = 200
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+  res.header('Access-Control-Allow-Methods', 'DELETE')
   next()
 })
 
@@ -75,6 +76,22 @@ const cropImage = (srcPath, width, height, marginLeft, marginTop, destPath) => {
       })
   })
 }
+
+app.delete('/cards', (req, res) => {
+  const cardsRootPath = path.join(__dirname, `/decks/`)
+  let regex = /[.](png|jpg)$/
+
+  try {
+    fs.readdirSync(cardsRootPath)
+        .filter(f => regex.test(f))
+        .map(f => fs.unlinkSync(cardsRootPath + f))
+    res.status(204).send()
+  } catch(err) {
+    console.error(err)
+    res.status(500).send(err)
+    return
+  }
+})
 
 app.listen(3000, () => {
   console.log('Server listening on port 3000')

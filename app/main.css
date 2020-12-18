@@ -6,6 +6,10 @@
   height: 44px;
 }
 
+.btn--hidden {
+  opacity: 0;
+}
+
 .cards .column {
     padding: .4rem;
 }

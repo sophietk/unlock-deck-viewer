@@ -2,11 +2,9 @@ const fs = require('fs')
 const path = require('path')
 const { promisify } = require('util')
 const express = require('express')
-const pdfJs = require('pdfjs-dist')
-const gm = require('gm').subClass({ imageMagick: true })
-const NodeCanvasFactory = require('./node-canvas-factory')
 
-const { decks, zoom } = require('./config')
+const { decks } = require('./config')
+const { getPage, cropImage } = require('./pdf-api')
 
 const app = express()
 
@@ -50,49 +48,6 @@ app.get('/decks/:deckId/cards/:cardId/:face', (req, res) => {
       res.status(500).send(err)
     })
 })
-
-const getPage = (pdfPath, pageNumber) => {
-  const pagePath = `${pdfPath.split('.pdf')[0]}-${pageNumber}.png`
-  if (fs.existsSync(pagePath)) {
-    return Promise.resolve(pagePath)
-  }
-
-  const rawPdf = new Uint8Array(fs.readFileSync(pdfPath))
-  return pdfJs.getDocument(rawPdf)
-    .promise
-    .then(pdfDocument => pdfDocument.getPage(pageNumber + 1))
-    .then(page => {
-      const viewport = page.getViewport({ scale: zoom });
-      const canvasFactory = new NodeCanvasFactory()
-      const canvasAndContext = canvasFactory.create(viewport.width, viewport.height)
-      const renderContext = {
-        canvasContext: canvasAndContext.context,
-        viewport: viewport,
-        canvasFactory: canvasFactory
-      }
-      return page.render(renderContext)
-        .promise
-        .then(() => {
-          const image = canvasAndContext.canvas.toBuffer()
-          return promisify(fs.writeFile)(pagePath, image)
-        })
-    })
-    .then(() => pagePath)
-}
-
-const cropImage = (srcPath, width, height, marginLeft, marginTop, destPath) => {
-  return new Promise((resolve, reject) => {
-    gm(srcPath)
-      .crop(width, height, marginLeft, marginTop)
-      .write(destPath, err => {
-        if (err) {
-          reject(err)
-          return
-        }
-        resolve(destPath)
-      })
-  })
-}
 
 app.delete('/cards', (req, res) => {
   const cardsRootPath = path.join(__dirname, `/decks/`)

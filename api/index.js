@@ -6,6 +6,7 @@ const express = require('express')
 const { decks } = require('./config')
 const { getPage, cropImage } = require('./pdf-img-api')
 
+const API_PORT = process.env.API_PORT || 3000
 const app = express()
 
 app.use((req, res, next) => {
@@ -68,6 +69,6 @@ app.delete('/cards', (req, res) => {
     })
 })
 
-app.listen(3000, () => {
-  console.log('Server listening on port 3000')
+app.listen(API_PORT, () => {
+  console.log(`Server listening on port ${API_PORT}`)
 })

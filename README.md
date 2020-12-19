@@ -11,12 +11,14 @@
 
 ## Installation
 
-    git clone https://github.com/sophietk/unlock-deck-viewer.git
-    cd unlock-deck-viewer
-    npm i
+```bash
+npm i -g unlock-deck-viewer
+```
 
 ## Usage
 
-    npm start
+```bash
+unlock-deck-viewer
+```
 
 And go playing on http://localhost:4000

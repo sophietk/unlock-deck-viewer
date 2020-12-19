@@ -1,7 +1,6 @@
-const apiUrl = 'http://localhost:3000'
 const cardsTpl = Handlebars.compile(document.querySelector('#tpl-cards').innerHTML)
 
-fetch(`${apiUrl}/decks`)
+fetch(`/decks`)
   .then(response => response.json())
   .then(decks => {
     decks.forEach(({ id, name, difficulty }) => {
@@ -95,7 +94,7 @@ document.querySelector('#btnFullscreen').addEventListener('click', toggleFullscr
 const btnResetCardsEl = document.querySelector('#btnResetCards')
 const resetCards = () => {
   btnResetCardsEl.classList.add('btn--hidden')
-  fetch(`${apiUrl}/cards`, { method: 'DELETE' })
+  fetch(`/cards`, { method: 'DELETE' })
     .then(() => {
       btnResetCardsEl.classList.remove('btn--hidden')
     })

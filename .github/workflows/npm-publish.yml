@@ -1,0 +1,23 @@
+name: npm-publish
+on:
+  push:
+    tags:
+      - v*
+jobs:
+  npm-publish:
+    name: npm-publish
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
+
+    steps:
+    - name: checkout repository
+      uses: actions/checkout@master
+    - name: set up node.js
+      uses: actions/setup-node@master
+      with:
+        node-version: '12.x'
+        registry-url: 'https://registry.npmjs.org'
+    - name: publish to npm
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      run: npm publish

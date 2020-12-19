@@ -37,6 +37,7 @@
   "homepage": "https://github.com/sophietk/unlock-deck-viewer#readme",
   "dependencies": {
     "canvas": "^2.6.1",
+    "commander": "^6.2.1",
     "express": "^4.17.1",
     "http-server": "^0.12.3",
     "jimp": "^0.16.1",

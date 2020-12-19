@@ -50,8 +50,8 @@ app.get('/decks/:deckId/cards/:cardId/:face', (req, res) => {
 })
 
 app.delete('/cards', (req, res) => {
-  const cardsRootPath = path.join(__dirname, `/decks/`)
-  let generatedImageRegex = /[.](png|jpg)$/
+  const cardsRootPath = path.join(__dirname, '/decks/')
+  const generatedImageRegex = /[.](png|jpg)$/
 
   promisify(fs.readdir)(cardsRootPath)
     .then(files => files

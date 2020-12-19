@@ -1,7 +1,7 @@
 {
   "name": "unlock-deck-viewer",
   "version": "1.0.0",
-  "description": "Tiny app to load and view an Unlock adventure deck",
+  "description": "Tiny app to load and play an Unlock adventure deck",
   "main": "index.js",
   "scripts": {
     "lint": "run-p lint:*",
@@ -9,6 +9,9 @@
     "start": "run-p serve:*",
     "serve:api": "nodemon api",
     "serve:app": "http-server app -p 4000"
+  },
+  "bin": {
+    "unlock-deck-viewer": "bin/index.js"
   },
   "repository": {
     "type": "git",
@@ -18,7 +21,11 @@
     "unlock",
     "deck",
     "viewer",
+    "escape",
+    "game",
+    "room",
     "adventure",
+    "scenario",
     "load",
     "pdf"
   ],

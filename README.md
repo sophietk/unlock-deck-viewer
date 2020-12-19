@@ -22,3 +22,10 @@ unlock-deck-viewer
 ```
 
 And go playing on http://localhost:4000
+
+Options:
+```
+-p, --app-port <number>  set app port (default: 4000)
+-i, --api-port <number>  set api port (default: 3000)
+-h, --help               display help for command
+```

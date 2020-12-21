@@ -100,6 +100,20 @@ module.exports.decks = [
     }
   },
   {
+    id: 'Noel_en_juillet-',
+    name: 'Noël en juillet',
+    difficulty: '★★☆',
+    pdfCardWidth: 721 * ratioDensity,
+    pdfCardHeight: 1323 * ratioDensity,
+    pdfMarginLeft: 160 * ratioDensity,
+    pdfMarginTop: 430 * ratioDensity,
+    nbCards: 27,
+    getPageNumber: (cardId, face) => {
+      const pageNumber = Math.floor(cardId / 6) * 2 + 1
+      return face === 'recto' ? pageNumber : pageNumber - 1
+    }
+  },
+  {
     id: '59baa2_164fbfd3e76b4dbcb46282074693f098',
     name: 'Le temple de RA',
     difficulty: '★★★',

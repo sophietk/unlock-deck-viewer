@@ -1,6 +1,5 @@
 const fs = require('fs')
 const path = require('path')
-const { promisify } = require('util')
 const express = require('express')
 
 const { decks } = require('./config')
@@ -37,25 +36,6 @@ app.get('/decks/:deckId/cards/:cardId/:face', (req, res) => {
   getPage(path.join(__dirname, `/decks/${deckId}.pdf`), pageNumber)
     .then(pagePath => cropImage(pagePath, pdfCardWidth, pdfCardHeight, marginLeft, marginTop, cardPath))
     .then(cardPath => res.sendFile(cardPath))
-    .catch(err => {
-      console.error(err)
-      res.status(500).send(err)
-    })
-})
-
-app.delete('/cards', (req, res) => {
-  const cardsRootPath = path.join(__dirname, '/decks/')
-  const generatedImageRegex = /[.](png|jpg)$/
-
-  promisify(fs.readdir)(cardsRootPath)
-    .then(files => files
-      .filter(file => generatedImageRegex.test(file))
-      .map(file => promisify(fs.unlink)(path.join(cardsRootPath, file)))
-    )
-    .then(deletePromises => Promise.all(deletePromises))
-    .then(() => {
-      res.status(204).send()
-    })
     .catch(err => {
       console.error(err)
       res.status(500).send(err)

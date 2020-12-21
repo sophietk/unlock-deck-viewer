@@ -94,13 +94,3 @@ const toggleFullscreen = () => {
   }
 }
 document.querySelector('#btnFullscreen').addEventListener('click', toggleFullscreen)
-
-const btnResetCardsEl = document.querySelector('#btnResetCards')
-const resetCards = () => {
-  btnResetCardsEl.classList.add('btn--hidden')
-  fetch('/cards', { method: 'DELETE' })
-    .then(() => {
-      btnResetCardsEl.classList.remove('btn--hidden')
-    })
-}
-btnResetCardsEl.addEventListener('click', resetCards)

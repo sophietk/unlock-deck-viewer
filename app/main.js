@@ -76,6 +76,11 @@ const closeZoom = () => {
   modalZoomEl.classList.remove('active')
 }
 modalZoomEl.addEventListener('click', closeZoom)
+window.addEventListener('keydown', event => {
+  if (event.key === 'Escape') {
+    closeZoom()
+  }
+})
 
 const rotateZoom = e => {
   e.stopPropagation()

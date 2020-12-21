@@ -53,7 +53,7 @@
         <div class="columns">
           {{#each cards}}
           <div class="column col-2 col-md-4">
-            <div class="card js-deck-card" id="card-{{cardId}}" data-face="recto" data-id="{{cardId}}">
+            <div class="card js-deck-card" id="card-{{cardId}}" data-face="recto" data-id="{{cardId}}" tabindex="0" onkeypress="flipOrZoom('{{deckId}}', {{cardId}}, event)">
               <div class="card-image recto-only">
                 <img src="/decks/{{deckId}}/cards/{{cardId}}/recto" class="img-responsive">
               </div>

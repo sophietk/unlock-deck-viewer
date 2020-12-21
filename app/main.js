@@ -24,14 +24,7 @@ document.querySelector('#btnLoad').addEventListener('click', () => {
   document.querySelector('.cards').innerHTML = cardsTpl({ cards: cardIds.map(cardId => ({ cardId, deckId })) })
   document.querySelectorAll('.card.js-deck-card').forEach(cardEl => {
     const cardId = cardEl.dataset.id
-    cardEl.addEventListener('click', event => {
-      event.stopPropagation()
-      if (cardEl.dataset.face === 'recto') {
-        flip(cardId)
-      } else {
-        zoom(deckId, cardId, 'verso')
-      }
-    })
+    cardEl.addEventListener('click', event => flipOrZoom(deckId, cardId, event))
     cardEl.querySelector('[data-action="flip"]').addEventListener('click', event => {
       event.stopPropagation()
       flip(cardId)
@@ -47,6 +40,16 @@ document.querySelector('#btnLoad').addEventListener('click', () => {
     })
   })
 })
+
+const flipOrZoom = (deckId, cardId, event) => {
+  event.stopPropagation()
+  const cardEl = event.currentTarget
+  if (cardEl.dataset.face === 'recto') {
+    flip(cardId)
+  } else {
+    zoom(deckId, cardId, 'verso')
+  }
+}
 
 const flip = (cardId) => {
   const cardEl = document.querySelector(`#card-${cardId}`)

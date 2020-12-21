@@ -9,13 +9,6 @@ const { getPage, cropImage } = require('./pdf-img-api')
 const API_PORT = process.env.API_PORT || 3000
 const app = express()
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-  res.header('Access-Control-Allow-Methods', 'DELETE')
-  next()
-})
-
 app.get('/decks', (req, res) => {
   res.send(decks.map(({ id, name, difficulty, nbCards }) => ({ id, name, difficulty, nbCards })))
 })

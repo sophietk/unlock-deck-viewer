@@ -82,14 +82,19 @@ window.addEventListener('keydown', event => {
   }
 })
 
-const rotateZoom = e => {
-  e.stopPropagation()
+const rotateZoom = event => {
+  event.stopPropagation()
   zoomedImageEl.classList.toggle('rotate')
   localStorage.setItem(`${zoomedImageEl.src},rotate`, zoomedImageEl.classList)
   const isRotated = zoomedImageEl.classList.contains('rotate')
   modalZoomEl.querySelector('.modal-body').style.overflowY = isRotated ? 'initial' : 'auto'
 }
 modalZoomEl.querySelector('[data-action="rotate"]').addEventListener('click', rotateZoom)
+window.addEventListener('keydown', event => {
+  if (['ArrowLeft', 'ArrowRight'].includes(event.key)) {
+    rotateZoom(event)
+  }
+})
 
 const toggleFullscreen = () => {
   if (!document.fullscreenElement) {

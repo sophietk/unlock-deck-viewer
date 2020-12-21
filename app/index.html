@@ -46,9 +46,7 @@
       <a href="#" class="modal-overlay" aria-label="Close"></a>
       <div class="modal-container flex-centered">
         <div class="modal-body">
-          <a href="#" class="link-rotate">Rotate</a>
-          <br>
-          <img src="">
+          <img src="" data-action="rotate" title="rotate">
         </div>
       </div>
     </div>
@@ -58,7 +56,7 @@
         <div class="columns">
           {{#each cards}}
           <div class="column col-2 col-md-4">
-            <div class="card" id="card-{{cardId}}" data-face="recto" data-id="{{cardId}}">
+            <div class="card js-deck-card" id="card-{{cardId}}" data-face="recto" data-id="{{cardId}}">
               <div class="card-image recto-only">
                 <img src="/decks/{{deckId}}/cards/{{cardId}}/recto" class="img-responsive">
               </div>

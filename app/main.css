@@ -53,3 +53,7 @@
 .rotate {
   transform: rotate(90deg);
 }
+
+[data-action] {
+  cursor: pointer;
+}

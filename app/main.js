@@ -22,7 +22,7 @@ document.querySelector('#btnLoad').addEventListener('click', () => {
   const cardIds = Array.from({ length: nbCards }, (v, k) => k)
 
   document.querySelector('.cards').innerHTML = cardsTpl({ cards: cardIds.map(cardId => ({ cardId, deckId })) })
-  document.querySelectorAll('.card').forEach(cardEl => {
+  document.querySelectorAll('.card.js-deck-card').forEach(cardEl => {
     const cardId = cardEl.dataset.id
     cardEl.addEventListener('click', event => {
       event.stopPropagation()
@@ -62,11 +62,13 @@ const discard = (cardId) => {
 }
 
 const modalZoomEl = document.querySelector('#modal-zoom')
+const zoomedImageEl = modalZoomEl.querySelector('img')
 
 const zoom = (deckId, cardId, face) => {
-  modalZoomEl.querySelector('img').src = `http://localhost:3000/decks/${deckId}/cards/${cardId}/${face}`
-  modalZoomEl.querySelector('img').classList.remove('rotate')
-  modalZoomEl.querySelector('.modal-body').style.overflowY = 'auto'
+  zoomedImageEl.src = `http://localhost:3000/decks/${deckId}/cards/${cardId}/${face}`
+  const isRotated = !!localStorage.getItem(`${zoomedImageEl.src},rotate`)
+  zoomedImageEl.classList.toggle('rotate', isRotated)
+  modalZoomEl.querySelector('.modal-body').style.overflowY = isRotated ? 'initial' : 'auto'
   modalZoomEl.classList.add('active')
 }
 
@@ -77,10 +79,12 @@ modalZoomEl.addEventListener('click', closeZoom)
 
 const rotateZoom = e => {
   e.stopPropagation()
-  modalZoomEl.querySelector('img').classList.toggle('rotate')
-  modalZoomEl.querySelector('.modal-body').style.overflowY = 'initial'
+  zoomedImageEl.classList.toggle('rotate')
+  localStorage.setItem(`${zoomedImageEl.src},rotate`, zoomedImageEl.classList)
+  const isRotated = zoomedImageEl.classList.contains('rotate')
+  modalZoomEl.querySelector('.modal-body').style.overflowY = isRotated ? 'initial' : 'auto'
 }
-modalZoomEl.querySelector('.link-rotate').addEventListener('click', rotateZoom)
+modalZoomEl.querySelector('[data-action="rotate"]').addEventListener('click', rotateZoom)
 
 const toggleFullscreen = () => {
   if (!document.fullscreenElement) {

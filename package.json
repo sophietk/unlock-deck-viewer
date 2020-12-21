@@ -52,7 +52,8 @@
   "standard": {
     "globals": [
       "Handlebars",
-      "fetch"
+      "fetch",
+      "localStorage"
     ]
   }
 }

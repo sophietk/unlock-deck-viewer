@@ -75,13 +75,14 @@ const zoom = (deckId, cardId, face) => {
   modalZoomEl.classList.add('active')
 }
 
-const closeZoom = () => {
+const closeZoom = event => {
+  event.preventDefault()
   modalZoomEl.classList.remove('active')
 }
 modalZoomEl.addEventListener('click', closeZoom)
 window.addEventListener('keydown', event => {
   if (event.key === 'Escape') {
-    closeZoom()
+    closeZoom(event)
   }
 })
 
@@ -99,7 +100,8 @@ window.addEventListener('keydown', event => {
   }
 })
 
-const toggleFullscreen = () => {
+const toggleFullscreen = event => {
+  event.preventDefault()
   if (!document.fullscreenElement) {
     document.documentElement.requestFullscreen()
   } else {

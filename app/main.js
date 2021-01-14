@@ -68,7 +68,7 @@ const modalZoomEl = document.querySelector('#modal-zoom')
 const zoomedImageEl = modalZoomEl.querySelector('img')
 
 const zoom = (deckId, cardId, face) => {
-  zoomedImageEl.src = `http://localhost:3000/decks/${deckId}/cards/${cardId}/${face}`
+  zoomedImageEl.src = `/decks/${deckId}/cards/${cardId}/${face}`
   const isRotated = !!localStorage.getItem(`${zoomedImageEl.src},rotate`)
   zoomedImageEl.classList.toggle('rotate', isRotated)
   modalZoomEl.querySelector('.modal-body').style.overflowY = isRotated ? 'initial' : 'auto'

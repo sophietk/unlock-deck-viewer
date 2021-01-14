@@ -1,6 +1,6 @@
 {
   "name": "unlock-deck-viewer",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Tiny app to load and play an Unlock adventure deck",
   "main": "index.js",
   "scripts": {

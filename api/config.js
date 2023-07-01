@@ -48,6 +48,20 @@ module.exports.decks = [
     }
   },
   {
+    id: '59baa2_91481bc69eda4c75b6ef318135d8508b',
+    name: 'Cambriolage fantôme',
+    difficulty: '★☆☆',
+    pdfCardWidth: 779 * ratioDensity,
+    pdfCardHeight: 1319 * ratioDensity,
+    pdfMarginLeft: 461 * ratioDensity,
+    pdfMarginTop: 252 * ratioDensity,
+    nbCards: 4, //25
+    getPageNumber: (cardId, face) => {
+      const pageNumber = Math.floor(cardId / 4) * 2 + 1
+      return face === 'recto' ? pageNumber : pageNumber - 1
+    }
+  },
+  {
     id: '59baa2_fcba9236512e4b2b912e26150ca01264',
     name: 'L’élite',
     difficulty: '★★☆',

@@ -1,4 +1,4 @@
-const pdfJs = require('pdfjs-dist/es5/build/pdf')
+const pdfJs = require('pdfjs-dist/build/pdf')
 const jimp = require('jimp')
 const fs = require('fs')
 const { promisify } = require('util')

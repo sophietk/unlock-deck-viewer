@@ -43,14 +43,14 @@
   "homepage": "https://github.com/sophietk/unlock-deck-viewer#readme",
   "dependencies": {
     "canvas": "^2.6.1",
-    "commander": "^6.2.1",
+    "commander": "^11.0.0",
     "express": "^4.17.1",
     "http-server": "^14.1.1",
-    "jimp": "^0.22.8",
-    "nodemon": "^1.14.9",
-    "npm-run-all": "^4.1.2",
+    "jimp": "^0.22.10",
+    "nodemon": "^3.0.1",
+    "npm-run-all": "^4.1.5",
     "pdf.js": "^0.1.0",
-    "pdfjs-dist": "2.5.207"
+    "pdfjs-dist": "^3.9.179"
   },
   "devDependencies": {
     "standard": "^17.1.0"

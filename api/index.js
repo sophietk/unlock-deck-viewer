@@ -21,14 +21,14 @@ app.get('/decks/:deckId/cards/:cardId/:face', (req, res) => {
     return
   }
 
-  const { pdfCardWidth, pdfCardHeight, pdfMarginLeft, pdfMarginTop, getPageNumber, getRowIndex, getColumnIndex } = decks.find(deck => deck.id === deckId)
-  const pageNumber = getPageNumber(cardId, face)
+  const { pdfCardWidth, pdfCardHeight, pdfMarginLeft, pdfMarginTop, getPageIndex, getRowIndex, getColumnIndex } = decks.find(deck => deck.id === deckId)
+  const pageIndex = getPageIndex(cardId, face)
   const rowIndex = getRowIndex(cardId)
   const columnIndex = getColumnIndex(cardId, face)
   const marginTop = pdfMarginTop + rowIndex * pdfCardHeight
   const marginLeft = pdfMarginLeft + columnIndex * pdfCardWidth
 
-  getPage(path.join(__dirname, `/decks/${deckId}.pdf`), pageNumber)
+  getPage(path.join(__dirname, `/decks/${deckId}.pdf`), pageIndex)
     .then(pagePath => cropImage(pagePath, pdfCardWidth, pdfCardHeight, marginLeft, marginTop, cardPath))
     .then(cardPath => res.sendFile(cardPath))
     .catch(err => {

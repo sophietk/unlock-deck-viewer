@@ -2,6 +2,26 @@ const zoom = 2.89
 const ratioDensity = 0.24 * zoom
 const rowsPerPage = 2
 
+getPageIndex = (columnsPerPage, pdfPagesToSkip, isFirstPageRecto) => (cardId, face) => {
+  const pageIndex = Math.floor(cardId / columnsPerPage / rowsPerPage) * 2 + pdfPagesToSkip
+
+  if (isFirstPageRecto) {
+    return face === 'recto' ? pageIndex : pageIndex + 1
+  } else {
+    return face === 'recto' ? pageIndex + 1 : pageIndex
+  }
+}
+
+getPageIndexWithInvertedRectoVersoEvery2Pages = (columnsPerPage, pdfPagesToSkip, isFirstPageRecto) => (cardId, face) => {
+  const pageIndex = Math.floor(cardId / columnsPerPage / rowsPerPage) * 2 + pdfPagesToSkip
+
+  if (face === 'recto' ^ !isFirstPageRecto) {
+    return (pageIndex % 4) ? pageIndex + 1 : pageIndex
+  } else {
+    return (pageIndex % 4) ? pageIndex : pageIndex + 1
+  }
+}
+
 getRowIndex = (columnsPerPage) => (cardId) => {
   return Math.floor(cardId / columnsPerPage) % rowsPerPage
 }
@@ -23,10 +43,7 @@ module.exports.decks = [
     pdfCardHeight: 1323 * ratioDensity,
     pdfMarginLeft: 146 * ratioDensity,
     pdfMarginTop: 276 * ratioDensity,
-    getPageNumber: (cardId, face) => {
-      const pageNumber = Math.floor(cardId / 6) * 2 + 1
-      return face === 'recto' ? pageNumber : pageNumber - 1
-    },
+    getPageIndex: getPageIndex(3, 0, false),
     getRowIndex: getRowIndex(3),
     getColumnIndex: getColumnIndex(3, true)
   },
@@ -39,10 +56,7 @@ module.exports.decks = [
     pdfCardHeight: 1323 * ratioDensity,
     pdfMarginLeft: 146 * ratioDensity,
     pdfMarginTop: 276 * ratioDensity,
-    getPageNumber: (cardId, face) => {
-      const pageNumber = Math.floor(cardId / 6) * 2 + 1
-      return face === 'recto' ? pageNumber : pageNumber - 1
-    },
+    getPageIndex: getPageIndex(3, 0, false),
     getRowIndex: getRowIndex(3),
     getColumnIndex: getColumnIndex(3, true)
   },
@@ -55,11 +69,7 @@ module.exports.decks = [
     pdfCardHeight: 1323 * ratioDensity,
     pdfMarginLeft: 160 * ratioDensity,
     pdfMarginTop: 426 * ratioDensity,
-    getPageNumber: (cardId, face) => {
-      const pdfPagesToSkip = 2
-      const pageNumber = Math.floor(cardId / 6) * 2 + pdfPagesToSkip
-      return face === 'recto' ? pageNumber : pageNumber + 1
-    },
+    getPageIndex: getPageIndex(3, 2, true),
     getRowIndex: getRowIndex(3),
     getColumnIndex: getColumnIndex(3, false)
   },
@@ -72,10 +82,7 @@ module.exports.decks = [
     pdfCardHeight: 1321 * ratioDensity,
     pdfMarginLeft: 462 * ratioDensity,
     pdfMarginTop: 252 * ratioDensity,
-    getPageNumber: (cardId, face) => {
-      const pageNumber = Math.floor(cardId / 4) * 2 + 1
-      return face === 'recto' ? pageNumber : pageNumber - 1
-    },
+    getPageIndex: getPageIndex(2, 0, false),
     getRowIndex: getRowIndex(2),
     getColumnIndex: getColumnIndex(2, true)
   },
@@ -88,10 +95,7 @@ module.exports.decks = [
     pdfCardHeight: 1323 * ratioDensity,
     pdfMarginLeft: 146 * ratioDensity,
     pdfMarginTop: 276 * ratioDensity,
-    getPageNumber: (cardId, face) => {
-      const pageNumber = Math.floor(cardId / 6) * 2 + 1
-      return face === 'recto' ? pageNumber : pageNumber - 1
-    },
+    getPageIndex: getPageIndex(3, 0, false),
     getRowIndex: getRowIndex(3),
     getColumnIndex: getColumnIndex(3, true)
   },
@@ -104,15 +108,7 @@ module.exports.decks = [
     pdfCardHeight: 1323 * ratioDensity,
     pdfMarginLeft: 128 * ratioDensity,
     pdfMarginTop: 505 * ratioDensity,
-    getPageNumber: (cardId, face) => {
-      let pageNumber = Math.floor(cardId / 6) * 2
-      if (face === 'recto') {
-        pageNumber = (pageNumber % 4) ? pageNumber + 1 : pageNumber
-      } else if (face === 'verso') {
-        pageNumber = (pageNumber % 4) ? pageNumber : pageNumber + 1
-      }
-      return pageNumber
-    },
+    getPageIndex: getPageIndexWithInvertedRectoVersoEvery2Pages(3, 0, true),
     getRowIndex: getRowIndex(3),
     getColumnIndex: getColumnIndex(3, true)
   },
@@ -125,15 +121,7 @@ module.exports.decks = [
     pdfCardHeight: 1323 * ratioDensity,
     pdfMarginLeft: 128 * ratioDensity,
     pdfMarginTop: 505 * ratioDensity,
-    getPageNumber: (cardId, face) => {
-      let pageNumber = Math.floor(cardId / 6) * 2
-      if (face === 'recto') {
-        pageNumber = (pageNumber % 4) ? pageNumber + 1 : pageNumber
-      } else if (face === 'verso') {
-        pageNumber = (pageNumber % 4) ? pageNumber : pageNumber + 1
-      }
-      return pageNumber
-    },
+    getPageIndex: getPageIndexWithInvertedRectoVersoEvery2Pages(3, 0, true),
     getRowIndex: getRowIndex(3),
     getColumnIndex: getColumnIndex(3, true)
   },
@@ -146,10 +134,7 @@ module.exports.decks = [
     pdfCardHeight: 1323 * ratioDensity,
     pdfMarginLeft: 160 * ratioDensity,
     pdfMarginTop: 430 * ratioDensity,
-    getPageNumber: (cardId, face) => {
-      const pageNumber = Math.floor(cardId / 6) * 2 + 1
-      return face === 'recto' ? pageNumber : pageNumber - 1
-    },
+    getPageIndex: getPageIndex(3, 0, false),
     getRowIndex: getRowIndex(3),
     getColumnIndex: getColumnIndex(3, true)
   },
@@ -162,10 +147,7 @@ module.exports.decks = [
     pdfCardHeight: 1323 * ratioDensity,
     pdfMarginLeft: 146 * ratioDensity,
     pdfMarginTop: 276 * ratioDensity,
-    getPageNumber: (cardId, face) => {
-      const pageNumber = Math.floor(cardId / 6) * 2 + 1
-      return face === 'recto' ? pageNumber : pageNumber - 1
-    },
+    getPageIndex: getPageIndex(3, 0, false),
     getRowIndex: getRowIndex(3),
     getColumnIndex: getColumnIndex(3, true)
   }

@@ -13,9 +13,13 @@ module.exports.decks = [
     pdfMarginLeft: 146 * ratioDensity,
     pdfMarginTop: 276 * ratioDensity,
     nbCards: 12,
+    colPerPage: 3,
     getPageNumber: (cardId, face) => {
       const pageNumber = Math.floor(cardId / 6) * 2 + 1
       return face === 'recto' ? pageNumber : pageNumber - 1
+    },
+    getColNumber: (cardId, face) => {
+      return face === 'recto' ? (cardId % 6) % 3 : 2 - (cardId % 6) % 3
     }
   },
   {
@@ -27,9 +31,13 @@ module.exports.decks = [
     pdfMarginLeft: 146 * ratioDensity,
     pdfMarginTop: 276 * ratioDensity,
     nbCards: 27,
+    colPerPage: 3,
     getPageNumber: (cardId, face) => {
       const pageNumber = Math.floor(cardId / 6) * 2 + 1
       return face === 'recto' ? pageNumber : pageNumber - 1
+    },
+    getColNumber: (cardId, face) => {
+      return face === 'recto' ? (cardId % 6) % 3 : 2 - (cardId % 6) % 3
     }
   },
   {
@@ -41,24 +49,36 @@ module.exports.decks = [
     pdfMarginLeft: 160 * ratioDensity,
     pdfMarginTop: 426 * ratioDensity,
     nbCards: 24,
+    colPerPage: 3,
     getPageNumber: (cardId, face) => {
       const pdfPagesToSkip = 2
       const pageNumber = Math.floor(cardId / 6) * 2 + pdfPagesToSkip
       return face === 'recto' ? pageNumber : pageNumber + 1
+    },
+    getColNumber: (cardId, face) => {
+      return face === 'recto' ? (cardId % 6) % 3 : 2 - (cardId % 6) % 3
     }
   },
   {
     id: '59baa2_91481bc69eda4c75b6ef318135d8508b',
     name: 'Cambriolage fantôme',
     difficulty: '★☆☆',
-    pdfCardWidth: 779 * ratioDensity,
-    pdfCardHeight: 1319 * ratioDensity,
-    pdfMarginLeft: 461 * ratioDensity,
+    pdfCardWidth: 778 * ratioDensity,
+    pdfCardHeight: 1321 * ratioDensity,
+    pdfMarginLeft: 462 * ratioDensity,
     pdfMarginTop: 252 * ratioDensity,
-    nbCards: 4, //25
+    nbCards: 24,
+    colPerPage: 2,
+    cardsPerPage: 4,
     getPageNumber: (cardId, face) => {
-      const pageNumber = Math.floor(cardId / 4) * 2 + 1
+      const cardsPerPage = 4
+      const pageNumber = Math.floor(cardId / cardsPerPage) * 2 + 1
       return face === 'recto' ? pageNumber : pageNumber - 1
+    },
+    getColNumber: (cardId, face) => {
+      const cardsPerPage = 4
+      const colPerPage = 2
+      return face === 'recto' ? (cardId % cardsPerPage) % colPerPage : 1 - (cardId % cardsPerPage) % colPerPage
     }
   },
   {
@@ -70,9 +90,13 @@ module.exports.decks = [
     pdfMarginLeft: 146 * ratioDensity,
     pdfMarginTop: 276 * ratioDensity,
     nbCards: 21,
+    colPerPage: 3,
     getPageNumber: (cardId, face) => {
       const pageNumber = Math.floor(cardId / 6) * 2 + 1
       return face === 'recto' ? pageNumber : pageNumber - 1
+    },
+    getColNumber: (cardId, face) => {
+      return face === 'recto' ? (cardId % 6) % 3 : 2 - (cardId % 6) % 3
     }
   },
   {
@@ -84,6 +108,7 @@ module.exports.decks = [
     pdfMarginLeft: 128 * ratioDensity,
     pdfMarginTop: 505 * ratioDensity,
     nbCards: 24,
+    colPerPage: 3,
     getPageNumber: (cardId, face) => {
       let pageNumber = Math.floor(cardId / 6) * 2
       if (face === 'recto') {
@@ -92,6 +117,9 @@ module.exports.decks = [
         pageNumber = (pageNumber % 4) ? pageNumber : pageNumber + 1
       }
       return pageNumber
+    },
+    getColNumber: (cardId, face) => {
+      return face === 'recto' ? (cardId % 6) % 3 : 2 - (cardId % 6) % 3
     }
   },
   {
@@ -103,6 +131,7 @@ module.exports.decks = [
     pdfMarginLeft: 128 * ratioDensity,
     pdfMarginTop: 505 * ratioDensity,
     nbCards: 24,
+    colPerPage: 3,
     getPageNumber: (cardId, face) => {
       let pageNumber = Math.floor(cardId / 6) * 2
       if (face === 'recto') {
@@ -111,6 +140,9 @@ module.exports.decks = [
         pageNumber = (pageNumber % 4) ? pageNumber : pageNumber + 1
       }
       return pageNumber
+    },
+    getColNumber: (cardId, face) => {
+      return face === 'recto' ? (cardId % 6) % 3 : 2 - (cardId % 6) % 3
     }
   },
   {
@@ -122,9 +154,13 @@ module.exports.decks = [
     pdfMarginLeft: 160 * ratioDensity,
     pdfMarginTop: 430 * ratioDensity,
     nbCards: 27,
+    colPerPage: 3,
     getPageNumber: (cardId, face) => {
       const pageNumber = Math.floor(cardId / 6) * 2 + 1
       return face === 'recto' ? pageNumber : pageNumber - 1
+    },
+    getColNumber: (cardId, face) => {
+      return face === 'recto' ? (cardId % 6) % 3 : 2 - (cardId % 6) % 3
     }
   },
   {
@@ -136,9 +172,13 @@ module.exports.decks = [
     pdfMarginLeft: 146 * ratioDensity,
     pdfMarginTop: 276 * ratioDensity,
     nbCards: 24,
+    colPerPage: 3,
     getPageNumber: (cardId, face) => {
       const pageNumber = Math.floor(cardId / 6) * 2 + 1
       return face === 'recto' ? pageNumber : pageNumber - 1
+    },
+    getColNumber: (cardId, face) => {
+      return face === 'recto' ? (cardId % 6) % 3 : 2 - (cardId % 6) % 3
     }
   }
 ]

@@ -6,6 +6,7 @@ const { decks } = require('./config')
 const { getPage, cropImage } = require('./pdf-img-api')
 
 const API_PORT = process.env.API_PORT || 3000
+const LINES_PER_PAGE = 2
 const app = express()
 
 app.get('/decks', (req, res) => {
@@ -21,16 +22,11 @@ app.get('/decks/:deckId/cards/:cardId/:face', (req, res) => {
     return
   }
 
-  const { pdfCardWidth, pdfCardHeight, pdfMarginLeft, pdfMarginTop, getPageNumber } = decks.find(deck => deck.id === deckId)
+  const { pdfCardWidth, pdfCardHeight, pdfMarginLeft, pdfMarginTop, getPageNumber, getColNumber, colPerPage } = decks.find(deck => deck.id === deckId)
   const pageNumber = getPageNumber(cardId, face)
-  let colNumber
-  if (face === 'recto') {
-    colNumber = (cardId % 6) % 3
-  } else if (face === 'verso') {
-    colNumber = 2 - (cardId % 6) % 3
-  }
+  const colNumber = getColNumber(cardId, face)
   const marginLeft = pdfMarginLeft + colNumber * pdfCardWidth
-  const lineNumber = Math.floor(cardId / 3) % 2
+  const lineNumber = Math.floor(cardId / colPerPage) % LINES_PER_PAGE
   const marginTop = pdfMarginTop + lineNumber * pdfCardHeight
 
   getPage(path.join(__dirname, `/decks/${deckId}.pdf`), pageNumber)

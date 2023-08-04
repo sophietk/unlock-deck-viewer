@@ -90,7 +90,7 @@ module.exports.decks = [
     id: '59baa2_fcba9236512e4b2b912e26150ca01264',
     name: 'L’élite',
     difficulty: '★★☆',
-    nbCards: 21,
+    nbCards: 20,
     pdfCardWidth: 721 * ratioDensity,
     pdfCardHeight: 1324 * ratioDensity,
     pdfMarginLeft: 147 * ratioDensity,

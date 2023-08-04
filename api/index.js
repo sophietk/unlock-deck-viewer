@@ -25,8 +25,8 @@ app.get('/decks/:deckId/cards/:cardId/:face', (req, res) => {
   const { pdfCardWidth, pdfCardHeight, pdfMarginLeft, pdfMarginTop, getPageNumber, getColumnIndex, colPerPage } = decks.find(deck => deck.id === deckId)
   const pageNumber = getPageNumber(cardId, face)
   const columnIndex = getColumnIndex(cardId, face)
-  const marginLeft = pdfMarginLeft + columnIndex * pdfCardWidth
   const lineNumber = Math.floor(cardId / colPerPage) % LINES_PER_PAGE
+  const marginLeft = pdfMarginLeft + columnIndex * pdfCardWidth
   const marginTop = pdfMarginTop + lineNumber * pdfCardHeight
 
   getPage(path.join(__dirname, `/decks/${deckId}.pdf`), pageNumber)

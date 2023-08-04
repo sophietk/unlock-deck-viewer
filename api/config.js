@@ -2,13 +2,13 @@ const zoom = 2.89
 const ratioDensity = 0.24 * zoom
 const rowsPerPage = 2
 
-getRowIndex = (colPerPage) => (cardId) => {
-  return Math.floor(cardId / colPerPage) % rowsPerPage
+getRowIndex = (columnsPerPage) => (cardId) => {
+  return Math.floor(cardId / columnsPerPage) % rowsPerPage
 }
 
-getColumnIndex = (cardsPerPage, colPerPage, isVersoFromLeftToRight) => (cardId, face) => {
-  const colIndex = cardId % colPerPage
-  return face === 'recto' ^ isVersoFromLeftToRight ? colIndex : colPerPage - 1 - colIndex
+getColumnIndex = (columnsPerPage, isVersoFromLeftToRight) => (cardId, face) => {
+  const colIndex = cardId % columnsPerPage
+  return face === 'recto' ^ isVersoFromLeftToRight ? colIndex : columnsPerPage - 1 - colIndex
 }
 
 module.exports.zoom = zoom
@@ -28,7 +28,7 @@ module.exports.decks = [
       return face === 'recto' ? pageNumber : pageNumber - 1
     },
     getRowIndex: getRowIndex(3),
-    getColumnIndex: getColumnIndex(6, 3, true)
+    getColumnIndex: getColumnIndex(3, true)
   },
   {
     id: '59baa2_b414561726024995b66b03ecef774c8b',
@@ -44,7 +44,7 @@ module.exports.decks = [
       return face === 'recto' ? pageNumber : pageNumber - 1
     },
     getRowIndex: getRowIndex(3),
-    getColumnIndex: getColumnIndex(6, 3, true)
+    getColumnIndex: getColumnIndex(3, true)
   },
   {
     id: '59baa2_f33934a78d5b438e8cd3dafc2ae1b07f',
@@ -61,7 +61,7 @@ module.exports.decks = [
       return face === 'recto' ? pageNumber : pageNumber + 1
     },
     getRowIndex: getRowIndex(3),
-    getColumnIndex: getColumnIndex(6, 3, false)
+    getColumnIndex: getColumnIndex(3, false)
   },
   {
     id: '59baa2_91481bc69eda4c75b6ef318135d8508b',
@@ -77,7 +77,7 @@ module.exports.decks = [
       return face === 'recto' ? pageNumber : pageNumber - 1
     },
     getRowIndex: getRowIndex(2),
-    getColumnIndex: getColumnIndex(4, 2, true)
+    getColumnIndex: getColumnIndex(2, true)
   },
   {
     id: '59baa2_fcba9236512e4b2b912e26150ca01264',
@@ -93,7 +93,7 @@ module.exports.decks = [
       return face === 'recto' ? pageNumber : pageNumber - 1
     },
     getRowIndex: getRowIndex(3),
-    getColumnIndex: getColumnIndex(6, 3, true)
+    getColumnIndex: getColumnIndex(3, true)
   },
   {
     id: '59baa2_ec1d34bb0fe246069dd7dc12ebf8697d',
@@ -114,7 +114,7 @@ module.exports.decks = [
       return pageNumber
     },
     getRowIndex: getRowIndex(3),
-    getColumnIndex: getColumnIndex(6, 3, true)
+    getColumnIndex: getColumnIndex(3, true)
   },
   {
     id: '59baa2_d7f24d940eea4cfa89b7400dfb581459',
@@ -135,7 +135,7 @@ module.exports.decks = [
       return pageNumber
     },
     getRowIndex: getRowIndex(3),
-    getColumnIndex: getColumnIndex(6, 3, true)
+    getColumnIndex: getColumnIndex(3, true)
   },
   {
     id: 'Noel_en_juillet-',
@@ -151,7 +151,7 @@ module.exports.decks = [
       return face === 'recto' ? pageNumber : pageNumber - 1
     },
     getRowIndex: getRowIndex(3),
-    getColumnIndex: getColumnIndex(6, 3, true)
+    getColumnIndex: getColumnIndex(3, true)
   },
   {
     id: '59baa2_164fbfd3e76b4dbcb46282074693f098',
@@ -167,6 +167,6 @@ module.exports.decks = [
       return face === 'recto' ? pageNumber : pageNumber - 1
     },
     getRowIndex: getRowIndex(3),
-    getColumnIndex: getColumnIndex(6, 3, true)
+    getColumnIndex: getColumnIndex(3, true)
   }
 ]

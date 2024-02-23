@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const program = require('commander')
+const { program } = require('commander')
 const path = require('path')
 const httpServer = require('http-server')
 
@@ -14,7 +14,7 @@ program
   .option('-i, --api-port <number>', 'set api port', someParseInt, 3000)
   .parse(process.argv)
 
-const { appPort, apiPort } = program
+const { appPort, apiPort } = program.opts()
 
 process.env.API_PORT = apiPort
 require('../api')

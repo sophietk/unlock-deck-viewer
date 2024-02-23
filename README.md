@@ -12,6 +12,9 @@
 ## Installation
 
 ```bash
+# on mac
+brew install pkg-config cairo pango
+
 npm i -g unlock-deck-viewer
 ```
 

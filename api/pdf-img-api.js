@@ -26,8 +26,8 @@ const getPage = (pdfPath, pageNumber) => {
       const canvasAndContext = canvasFactory.create(viewport.width, viewport.height)
       const renderContext = {
         canvasContext: canvasAndContext.context,
-        viewport: viewport,
-        canvasFactory: canvasFactory
+        viewport,
+        canvasFactory
       }
       return page.render(renderContext)
         .promise

@@ -2,7 +2,7 @@ const zoom = 2.89
 const ratioDensity = 0.24 * zoom
 const rowsPerPage = 2
 
-getPageIndex = (columnsPerPage, pdfPagesToSkip, isFirstPageRecto) => (cardId, face) => {
+const getPageIndex = (columnsPerPage, pdfPagesToSkip, isFirstPageRecto) => (cardId, face) => {
   const pageIndex = Math.floor(cardId / columnsPerPage / rowsPerPage) * 2 + pdfPagesToSkip
 
   if (isFirstPageRecto) {
@@ -12,7 +12,7 @@ getPageIndex = (columnsPerPage, pdfPagesToSkip, isFirstPageRecto) => (cardId, fa
   }
 }
 
-getPageIndexWithInvertedRectoVersoEvery2Pages = (columnsPerPage, pdfPagesToSkip, isFirstPageRecto) => (cardId, face) => {
+const getPageIndexWithInvertedRectoVersoEvery2Pages = (columnsPerPage, pdfPagesToSkip, isFirstPageRecto) => (cardId, face) => {
   const pageIndex = Math.floor(cardId / columnsPerPage / rowsPerPage) * 2 + pdfPagesToSkip
 
   if (face === 'recto' ^ !isFirstPageRecto) {
@@ -22,11 +22,11 @@ getPageIndexWithInvertedRectoVersoEvery2Pages = (columnsPerPage, pdfPagesToSkip,
   }
 }
 
-getRowIndex = (columnsPerPage) => (cardId) => {
+const getRowIndex = (columnsPerPage) => (cardId) => {
   return Math.floor(cardId / columnsPerPage) % rowsPerPage
 }
 
-getColumnIndex = (columnsPerPage, isVersoFromLeftToRight) => (cardId, face) => {
+const getColumnIndex = (columnsPerPage, isVersoFromLeftToRight) => (cardId, face) => {
   const colIndex = cardId % columnsPerPage
   return face === 'recto' ^ isVersoFromLeftToRight ? colIndex : columnsPerPage - 1 - colIndex
 }

@@ -1,4 +1,4 @@
-import pdfJs from 'pdfjs-dist/build/pdf.js'
+import * as pdfJs from 'pdfjs-dist/legacy/build/pdf.mjs'
 import { Jimp } from 'jimp'
 import fs from 'fs'
 import { promisify } from 'util'

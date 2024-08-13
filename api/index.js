@@ -1,9 +1,13 @@
-const fs = require('fs')
-const path = require('path')
-const express = require('express')
+import fs from 'fs'
+import path from 'path'
+import { fileURLToPath } from 'url'
+import express from 'express'
 
-const { decks } = require('./config')
-const { getPage, cropImage } = require('./pdf-img-api')
+import { decks } from './config.js'
+import { getPage, cropImage } from './pdf-img-api.js'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 const API_PORT = process.env.API_PORT || 3000
 const app = express()

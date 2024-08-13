@@ -1,8 +1,6 @@
-// Cf. pdfjs-dist/lib/test/unit/test_utils.js
+import * as Canvas from 'canvas'
 
-const Canvas = require('canvas')
-
-function NodeCanvasFactory () {}
+export function NodeCanvasFactory () {}
 NodeCanvasFactory.prototype = {
   create (width, height) {
     const canvas = Canvas.createCanvas(width, height)
@@ -25,5 +23,3 @@ NodeCanvasFactory.prototype = {
     canvasAndContext.context = null
   }
 }
-
-module.exports = NodeCanvasFactory

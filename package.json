@@ -3,6 +3,7 @@
   "version": "1.2.4",
   "description": "Tiny app to load and play an Unlock adventure deck",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "lint": "run-p lint:*",
     "lint:js": "standard",
@@ -50,7 +51,7 @@
     "nodemon": "^3.1.7",
     "npm-run-all": "^4.1.5",
     "pdf.js": "^0.1.0",
-    "pdfjs-dist": "^3.11.174"
+    "pdfjs-dist": "^4.0.189"
   },
   "devDependencies": {
     "standard": "^17.1.2"

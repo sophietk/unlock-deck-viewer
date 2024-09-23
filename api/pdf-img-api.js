@@ -1,5 +1,5 @@
 const pdfJs = require('pdfjs-dist/build/pdf')
-const jimp = require('jimp')
+const { Jimp } = require('jimp')
 const fs = require('fs')
 const { promisify } = require('util')
 
@@ -40,9 +40,9 @@ const getPage = (pdfPath, pageNumber) => {
 }
 
 const cropImage = (srcPath, width, height, marginLeft, marginTop, destPath) => {
-  return jimp.read(srcPath)
-    .then(image => image.crop(marginLeft, marginTop, width, height)
-      .writeAsync(destPath)
+  return Jimp.read(srcPath)
+    .then(image => image.crop({ x: marginLeft, y: marginTop, w: width, h: height })
+      .write(destPath)
     )
     .then(() => destPath)
 }

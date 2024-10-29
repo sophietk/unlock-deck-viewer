@@ -1,11 +1,12 @@
 import fs from 'fs'
 import path from 'path'
 import express from 'express'
+import getPort from 'get-port'
 
 import { decks } from './config.js'
 import { getPage, cropImage } from './pdf-img-api.js'
 
-const API_PORT = process.env.API_PORT || 3000
+export const apiPort = await getPort({ port: 3000 })
 const app = express()
 
 app.get('/decks', (req, res) => {
@@ -37,6 +38,6 @@ app.get('/decks/:deckId/cards/:cardId/:face', (req, res) => {
     })
 })
 
-app.listen(API_PORT, () => {
-  console.log(`Server listening on port ${API_PORT}`)
+app.listen(apiPort, () => {
+  console.log(`API server listening on port ${apiPort}`)
 })

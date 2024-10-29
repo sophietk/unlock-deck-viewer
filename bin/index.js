@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-const { program } = require('commander')
-const path = require('path')
-const httpServer = require('http-server')
+import { program } from 'commander'
+import { join } from 'path'
+import { createServer } from 'http-server'
 
 function someParseInt (value, dummyPrevious) {
   return parseInt(value, 10)
@@ -17,9 +17,9 @@ program
 const { appPort, apiPort } = program.opts()
 
 process.env.API_PORT = apiPort
-require('../api')
+import '../api/index.js'
 
-httpServer.createServer({
-  root: path.join(__dirname, '..', 'app'),
+createServer({
+  root: join(import.meta.dirname, '..', 'app'),
   proxy: `http://localhost:${apiPort}`
 }).listen(appPort, () => console.log(`Application available on port ${appPort}, please go to http://localhost:${appPort}`))

@@ -1,13 +1,9 @@
 import fs from 'fs'
 import path from 'path'
-import { fileURLToPath } from 'url'
 import express from 'express'
 
 import { decks } from './config.js'
 import { getPage, cropImage } from './pdf-img-api.js'
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
 
 const API_PORT = process.env.API_PORT || 3000
 const app = express()
@@ -19,7 +15,7 @@ app.get('/decks', (req, res) => {
 app.get('/decks/:deckId/cards/:cardId/:face', (req, res) => {
   const { deckId, cardId, face } = req.params
 
-  const cardPath = path.join(__dirname, `/decks/${deckId}-card-${cardId}-${face}.jpg`)
+  const cardPath = path.join(import.meta.dirname, `/decks/${deckId}-card-${cardId}-${face}.jpg`)
   if (fs.existsSync(cardPath)) {
     setTimeout(() => res.sendFile(cardPath), 10)
     return
@@ -32,7 +28,7 @@ app.get('/decks/:deckId/cards/:cardId/:face', (req, res) => {
   const marginTop = pdfMarginTop + rowIndex * pdfCardHeight
   const marginLeft = pdfMarginLeft + columnIndex * pdfCardWidth
 
-  getPage(path.join(__dirname, `/decks/${deckId}.pdf`), pageIndex)
+  getPage(path.join(import.meta.dirname, `/decks/${deckId}.pdf`), pageIndex)
     .then(pagePath => cropImage(pagePath, pdfCardWidth, pdfCardHeight, marginLeft, marginTop, cardPath))
     .then(cardPath => res.sendFile(cardPath))
     .catch(err => {

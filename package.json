@@ -5,6 +5,10 @@
   "author": "sophietk",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": "20.x",
+    "npm": "10.x"
+  },
   "scripts": {
     "lint": "run-p lint:*",
     "lint:js": "standard",

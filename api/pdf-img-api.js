@@ -1,14 +1,14 @@
-const pdfJs = require('pdfjs-dist/build/pdf')
-const { Jimp } = require('jimp')
-const fs = require('fs')
-const { promisify } = require('util')
+import pdfJs from 'pdfjs-dist/build/pdf.js'
+import { Jimp } from 'jimp'
+import fs from 'fs'
+import { promisify } from 'util'
 
-const { zoom } = require('./config')
-const NodeCanvasFactory = require('./node-canvas-factory')
+import { zoom } from './config.js'
+import { NodeCanvasFactory } from './node-canvas-factory.js'
 
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms))
 
-const getPage = (pdfPath, pageNumber) => {
+export const getPage = (pdfPath, pageNumber) => {
   const pagePath = `${pdfPath.split('.pdf')[0]}-${pageNumber}.png`
   if (fs.existsSync(pagePath)) {
     return Promise.resolve()
@@ -39,12 +39,10 @@ const getPage = (pdfPath, pageNumber) => {
     .then(() => pagePath)
 }
 
-const cropImage = (srcPath, width, height, marginLeft, marginTop, destPath) => {
+export const cropImage = (srcPath, width, height, marginLeft, marginTop, destPath) => {
   return Jimp.read(srcPath)
     .then(image => image.crop({ x: marginLeft, y: marginTop, w: width, h: height })
       .write(destPath)
     )
     .then(() => destPath)
 }
-
-module.exports = { getPage, cropImage }

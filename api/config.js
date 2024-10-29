@@ -1,4 +1,4 @@
-const zoom = 2.89
+export const zoom = 2.89
 const ratioDensity = 0.24 * zoom
 const rowsPerPage = 2
 
@@ -31,9 +31,7 @@ const getColumnIndex = (columnsPerPage, isVersoFromLeftToRight) => (cardId, face
   return face === 'recto' ^ isVersoFromLeftToRight ? colIndex : columnsPerPage - 1 - colIndex
 }
 
-module.exports.zoom = zoom
-
-module.exports.decks = [
+export const decks = [
   {
     id: '59baa2_5dbfd556434846bf8754ca4116101f37',
     name: 'Tutoriel',

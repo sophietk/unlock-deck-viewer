@@ -3,6 +3,7 @@
   "version": "1.2.4",
   "description": "Tiny app to load and play an Unlock adventure deck",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "lint": "run-p lint:*",
     "lint:js": "standard",

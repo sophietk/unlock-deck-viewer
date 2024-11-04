@@ -2,21 +2,12 @@
   vertical-align: middle;
 }
 
-.btn--load {
-  height: 44px;
-}
-
-.btn--hidden {
-  opacity: 0;
-}
-
 .cards .column {
     padding: .4rem;
 }
 
 .card {
   position: relative;
-  cursor: pointer;
 }
 
 .card[data-face="recto"] .verso-only,

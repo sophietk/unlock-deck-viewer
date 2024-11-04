@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <title>Unlock deck viewer</title>
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
   <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 
@@ -25,7 +26,7 @@
         <input class="form-input" type="number" id="nbCards" type="number" value="10">
       </div>
       <div class="column col-2 col-md-3">
-        <button class="btn btn-primary btn--load" id="btnLoad">Load deck</button>
+        <button class="btn btn-primary" id="btnLoad">Load deck <i class="icon icon-arrow-right"></i></button>
         <br><a href="#" id="btnFullscreen">Toggle full screen</a>
       </div>
     </div>
@@ -53,7 +54,7 @@
         <div class="columns">
           {{#each cards}}
           <div class="column col-2 col-md-4">
-            <div class="card js-deck-card" id="card-{{cardId}}" data-face="recto" data-id="{{cardId}}" tabindex="0" onkeypress="flipOrZoom('{{deckId}}', {{cardId}}, event)">
+            <div class="card c-hand js-deck-card" id="card-{{cardId}}" data-face="recto" data-id="{{cardId}}" tabindex="0" onkeypress="flipOrZoom('{{deckId}}', {{cardId}}, event)">
               <div class="card-image recto-only">
                 <img src="/decks/{{deckId}}/cards/{{cardId}}/recto" class="img-responsive">
               </div>
@@ -72,7 +73,7 @@
       </div>
     </script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"></script>
     <script src="main.js"></script>
 </body>
 

@@ -60,6 +60,9 @@
   "devDependencies": {
     "standard": "^17.1.2"
   },
+  "overrides": {
+    "minimatch": "10.2.2"
+  },
   "standard": {
     "globals": [
       "Handlebars",

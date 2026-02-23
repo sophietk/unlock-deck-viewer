@@ -9,11 +9,15 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
     steps:
-    - uses: actions/checkout@v6
-    - uses: actions/setup-node@v6
-      with:
-        node-version: 24
-    - env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      run: npm publish
-
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - uses: actions/cache@v5
+        with:
+          key: npm-${{ hashFiles('package-lock.json') }}
+          path: |
+            node_modules/
+      - env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish

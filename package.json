@@ -14,7 +14,8 @@
     "lint:js": "standard",
     "start": "run-p serve:*",
     "serve:api": "nodemon api",
-    "serve:app": "http-server app -p 4000 -P http://localhost:3000"
+    "serve:app": "http-server app -p 4000 -P http://localhost:3000",
+    "clean:generated-img": "rm -rf api/decks/*.jpg && rm -rf api/decks/*.png"
   },
   "bin": {
     "unlock-deck-viewer": "bin/index.js"

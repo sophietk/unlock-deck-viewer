@@ -18,7 +18,7 @@ app.get('/decks/:deckId/cards/:cardId/:face', (req, res) => {
 
   const cardPath = path.join(import.meta.dirname, `/decks/${deckId}-card-${cardId}-${face}.jpg`)
   if (fs.existsSync(cardPath)) {
-    setTimeout(() => res.sendFile(cardPath), 10)
+    setTimeout(() => res.sendFile(cardPath, { dotfiles: 'allow' }), 10)
     return
   }
 
@@ -31,7 +31,7 @@ app.get('/decks/:deckId/cards/:cardId/:face', (req, res) => {
 
   getPage(path.join(import.meta.dirname, `/decks/${deckId}.pdf`), pageIndex)
     .then(pagePath => cropImage(pagePath, pdfCardWidth, pdfCardHeight, marginLeft, marginTop, cardPath))
-    .then(cardPath => res.sendFile(cardPath))
+    .then(cardPath => res.sendFile(cardPath, { dotfiles: 'allow' }))
     .catch(err => {
       console.error(err)
       res.status(500).send(err)

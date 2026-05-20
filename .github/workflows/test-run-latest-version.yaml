@@ -1,0 +1,10 @@
+name: test
+on: push
+
+jobs:
+  test-setup:
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm i -g unlock-deck-viewer
+      - run: unlock-deck-viewer
+      - run: telnet localhost 4000

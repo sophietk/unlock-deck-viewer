@@ -57,7 +57,7 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.14",
-    "npm-run-all2": "^9.0.2",
+    "npm-run-all2": "^9.0.3",
     "standard": "^17.1.2"
   },
   "overrides": {

@@ -61,6 +61,7 @@
     "standard": "^17.1.2"
   },
   "overrides": {
+    "minimatch": "^10.2.6",
     "pdf-to-img": {
       "tar": "^7.5.10"
     }

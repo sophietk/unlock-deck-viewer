@@ -5,20 +5,38 @@ import { promisify } from 'util'
 
 import { zoom } from './config.js'
 
-const wait = ms => new Promise(resolve => setTimeout(resolve, ms))
+const pagePromises = new Map()
 
 export const getPage = (pdfPath, pageNumber) => {
   const pagePath = `${pdfPath.split('.pdf')[0]}-${pageNumber}.png`
+
+  // Page already exists
   if (fs.existsSync(pagePath)) {
-    return Promise.resolve()
-      .then(() => wait(10))
-      .then(() => pagePath)
+    return Promise.resolve(pagePath)
   }
 
-  return pdf(pdfPath, { scale: zoom })
-    .then(pdfDocument => pdfDocument.getPage(pageNumber + 1))
-    .then(image => promisify(fs.writeFile)(pagePath, image))
-    .then(() => pagePath)
+  // Another caller is already generating this exact page.
+  if (pagePromises.has(pagePath)) {
+    return pagePromises.get(pagePath)
+  }
+
+  // Page will be generated
+  const promise = new Promise((resolve, reject) => {
+    pdf(pdfPath, { scale: zoom })
+      .then(pdfDocument => pdfDocument.getPage(pageNumber + 1))
+      .then(image => {
+        const tmpPath = `${pagePath}.${process.pid}.${Date.now()}.tmp`
+        return promisify(fs.writeFile)(tmpPath, image)
+          .then(() => promisify(fs.rename)(tmpPath, pagePath))
+      })
+      .then(() => resolve(pagePath))
+      .catch(reject)
+      .finally(() => {
+        pagePromises.delete(pagePath)
+      })
+  })
+  pagePromises.set(pagePath, promise)
+  return promise
 }
 
 export const cropImage = (srcPath, width, height, marginLeft, marginTop, destPath) => {
